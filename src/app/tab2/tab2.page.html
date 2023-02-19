@@ -32,16 +32,16 @@
 
     <ion-row>
       <ion-col>
-        <ion-button>Today</ion-button>
-        <ion-button>Enter date</ion-button>
+        <ion-button (click)="onClick('date', 'Today')">Today</ion-button>
+        <ion-button (click)="onClick('date', 'Enter Date')">Enter date</ion-button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <ion-button>Anytime</ion-button>
-        <ion-button>Morning</ion-button>
-        <ion-button>Afternoon</ion-button>
+        <ion-button (click)="onClick('date', 'Anytime')">Anytime</ion-button>
+        <ion-button (click)="onClick('date', 'Morning')">Morning</ion-button>
+        <ion-button (click)="onClick('date', 'Afternoon')">Afternoon</ion-button>
       </ion-col>
     </ion-row>
 
@@ -56,9 +56,9 @@
 
     <ion-row>
       <ion-col>
-        <ion-button>Anyone</ion-button>
-        <ion-button>Male</ion-button>
-        <ion-button>Female</ion-button>
+        <ion-button (click)="onClick('gender', 'Anyone')">Anyone</ion-button>
+        <ion-button (click)="onClick('gender', 'Male')">Male</ion-button>
+        <ion-button (click)="onClick('gender', 'Female')">Female</ion-button>
       </ion-col>
     </ion-row>
 
@@ -73,9 +73,9 @@
 
     <ion-row>
       <ion-col>
-        <ion-button>Anyone</ion-button>
-        <ion-button>18-24</ion-button>
-        <ion-button>25-40</ion-button>
+        <ion-button (click)="onClick('age', 'Anyone')">Anyone</ion-button>
+        <ion-button (click)="onClick('age', '18-24')">18-24</ion-button>
+        <ion-button (click)="onClick('age', '25-40')">25-40</ion-button>
       </ion-col>
     </ion-row>
     
@@ -90,7 +90,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-input type="number" [(ngModel)]="inputValue" class="custom input_custom_playerCount"></ion-input>
+        <ion-input type="number" (change)="onClick('count', $event)" [(ngModel)]="inputValue" class="custom input_custom_playerCount"></ion-input>
       </ion-col>
     </ion-row>
 
@@ -105,11 +105,11 @@
 
     <div class="activity_selection">
       <ion-row>
-        <ion-col class="col_center_align">
+        <ion-col (click)="onClick('category','Lets play cricket')" class="col_center_align">
           <ion-icon name="bicycle-outline"></ion-icon>
           <ion-text>Let's play cricket</ion-text>
         </ion-col>
-        <ion-col class="col_center_align">
+        <ion-col (click)="onClick('category', 'Casual Meetup')" class="col_center_align">
           <ion-icon name="people-outline"></ion-icon>
           <ion-text>Casual Meetup</ion-text>
         </ion-col>
@@ -121,7 +121,7 @@
 
     <ion-row style="margin-top: 15px;">
       <ion-col class="center_align">
-        <ion-button (clik)="publish()">Publish</ion-button>
+        <ion-button (click)="publish()">Publish</ion-button>
       </ion-col>
     </ion-row>
     

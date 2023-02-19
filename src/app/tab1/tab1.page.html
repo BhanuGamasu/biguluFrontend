@@ -4,15 +4,18 @@
       <ion-menu-button menu="main-menu" auto-hide="false"></ion-menu-button>
     </ion-buttons>
     <ion-row style="display: flex; align-items: center;">
-      <ion-col class="center_align" size="4.5">
+      <ion-col class="center_align" size="3">
         <ion-text>Map View</ion-text>
       </ion-col>
-      <ion-col style="height: 45px; width: 45px;" class="center_align col_center_align" size="4.5">
+      <ion-col style="height: 45px; width: 45px;" class="center_align col_center_align" size="3">
         <!-- <ion-searchbar style="padding: 0px"></ion-searchbar> -->
         <ion-icon name="search-outline"></ion-icon>
       </ion-col>
       <ion-col class="center_align" size="3">
         <ion-badge color="primary">22k</ion-badge>
+      </ion-col>
+      <ion-col class="center_align" size="3">
+        <ion-button (click)="signOut()">signOut</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -41,13 +44,13 @@
 
 
 <ion-content [fullscreen]="true">
-  <div class="top-container">
+  <div class="top-container" *ngFor="let item of activityData">
     <ion-row style="padding-bottom: 7px;">
       <ion-label class="col_center_align">
         <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
       </ion-label>
       <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">Let's play cricket</ion-text>
+        <ion-text class="sub_heading">{{item.category}}</ion-text>
       </ion-col>
       <ion-col style="display: flex; justify-content: end;">
         <ion-text>seen 1 day back</ion-text>
@@ -58,7 +61,7 @@
         <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
       </ion-label>
       <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">Miyapur Hyderabad</ion-text>
+        <ion-text class="sub_heading">{{item.location}}</ion-text>
       </ion-col>
       <ion-col style="display: flex; justify-content: end;">
         <ion-text>waiting for approvel</ion-text>
@@ -69,14 +72,14 @@
         <ion-icon name="time-outline" style="height: 20px; width: 20px;"></ion-icon>
       </ion-label>
       <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">Date 25 January 2023 Morning</ion-text>
+        <ion-text class="sub_heading">{{item.date}}</ion-text>
       </ion-col>
       <ion-col style="display: flex; justify-content: end;">
         <ion-icon name="arrow-forward-circle-outline" style="height: 35px; width: 35px;"></ion-icon>
       </ion-col>
     </ion-row>
   </div>
-  <div class="top-container">
+  <!-- <div class="top-container">
     <div></div>
   </div>
   <div class="top-container">
@@ -84,5 +87,5 @@
   </div>
   <div class="top-container">
     <div></div>
-  </div>
+  </div> -->
 </ion-content>

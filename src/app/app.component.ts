@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { isPlatform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -28,5 +31,19 @@ export class AppComponent {
       age: 26,
       role: 'junior Analyst'
     }];
-  constructor() {}
+  constructor( private router: Router) {
+    if (!isPlatform('capacitor')) {
+      GoogleAuth.initialize();
+      
+      setTimeout(() => {
+        GoogleAuth.refresh().then(res => {
+          console.log(res, 'logged user');
+          this.router.navigate(['/tabs/tab1']);
+        }).catch(err => {
+          console.log(err, 'not logged in');
+          this.router.navigate(['/login'])
+        })
+      }, 1000)
+    }
+  }
 }
