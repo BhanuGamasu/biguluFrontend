@@ -9,5 +9,11 @@ import { Router } from '@angular/router';
 export class Tab1Page {
   constructor(private route: Router) {
   }
-  ngOninit(){}
+  ngOninit(){
+
+  }
+
+  search(){
+    this.route.navigateByUrl('search')
+  }
 }
