@@ -1,0 +1,89 @@
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+.round {
+    max-width: 125px;
+    height: 125px;
+    width: 100%;
+    background-color: rgb(50,50,50,0.6);
+    border-radius: 50%;
+    line-height: 1.21;
+    color: white;
+    font-size: 34px;
+    margin:20px;
+    float: left;
+}
+
+.center_align {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex_end_align {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+.col_center_align {
+    display: flex;
+    align-items: center;
+}
+
+.heading {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sub_heading{
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+ion-button {
+    --background: #ededed;
+    --background-activated: rgb(187, 53, 53);
+  
+    --color: black;
+  
+    --border-radius: 5px;
+    --border-color: black;
+    --border-style: solid;
+    --border-width: 1px;
+  
+    --box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.25);
+
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+
+    height: 39px;
+    margin-right: 10px;
+    text-transform: none;
+}
+
+ion-input.custom {
+    --background: #ededed;
+    --color: black;
+    width: 37px;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+}

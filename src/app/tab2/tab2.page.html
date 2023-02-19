@@ -1,0 +1,129 @@
+<ion-content>
+  <div style="padding: 15px; height: 100%;">
+    <ion-row>
+      <ion-col>
+        <ion-text class="heading">Create activity !</ion-text>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row style="margin-top: 15px;">
+      <ion-label class="col_center_align">
+        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">Location</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-text class="heading">Miyapur Hyderabad</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 15px;">
+      <ion-label class="col_center_align">
+        <ion-icon name="time-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">When you planning ?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button>Today</ion-button>
+        <ion-button>Enter date</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button>Anytime</ion-button>
+        <ion-button>Morning</ion-button>
+        <ion-button>Afternoon</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-label class="col_center_align">
+        <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">Gender Preference ?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button>Anyone</ion-button>
+        <ion-button>Male</ion-button>
+        <ion-button>Female</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-label class="col_center_align">
+        <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">Age Preference ?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button>Anyone</ion-button>
+        <ion-button>18-24</ion-button>
+        <ion-button>25-40</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-label class="col_center_align">
+        <ion-icon name="man-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">How many people you want to invite ?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input type="number" [(ngModel)]="inputValue" class="custom input_custom_playerCount"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-label class="col_center_align">
+        <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">Activity</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <div class="activity_selection">
+      <ion-row>
+        <ion-col class="col_center_align">
+          <ion-icon name="bicycle-outline"></ion-icon>
+          <ion-text>Let's play cricket</ion-text>
+        </ion-col>
+        <ion-col class="col_center_align">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-text>Casual Meetup</ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div style="margin-right: 40px;">
+      <ion-textarea class="custom-textarea" placeholder="Type something here"></ion-textarea>
+    </div>
+
+    <ion-row style="margin-top: 15px;">
+      <ion-col class="center_align">
+        <ion-button (clik)="publish()">Publish</ion-button>
+      </ion-col>
+    </ion-row>
+    
+  </div>
+</ion-content>

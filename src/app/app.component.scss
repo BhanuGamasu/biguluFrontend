@@ -1,0 +1,7 @@
+.padding_new {
+    padding: 9px 0px; /* Applies to iOS */
+}
+
+.padding_new:not(.ios) {
+    padding: 0px; /* Applies to android */
+}
