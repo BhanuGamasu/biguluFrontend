@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -12,7 +13,7 @@ export class Tab2Page {
   createActivity: FormGroup;
   activityData: any;
   currentData:any  = {date: '', gender:'', age: '', count: '', category: '', location: 'Miyapur Hyderabad'};
-  constructor(private route: Router, private fb: FormBuilder) {}
+  constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController) {}
 
   ngOninit(){
     
@@ -53,5 +54,31 @@ export class Tab2Page {
     }
     this.currentData[key] = value;
   }
+  async openCalendar() {
+    const alert = await this.alertController.create({
+      header: 'Select Date',
+      inputs: [
+        {
+          name: 'date',
+          type: 'date',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            console.log('Selected date:', data.date);
+          },
+        },
+      ],
+    });
+  
+    await alert.present();
+  }
+  
 
 }

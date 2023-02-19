@@ -24,9 +24,7 @@ export class Tab1Page {
     
     setInterval(() => {
       this.activityData = localStorage.getItem('activity');
-    this.activityData = JSON.parse(this.activityData);
-    console.log(this.activityData, 'dfghgfd');
-    
+    this.activityData = JSON.parse(this.activityData);    
     }, 1000)
   }
 
@@ -35,5 +33,9 @@ export class Tab1Page {
       console.log(res, 'Signed out');
       this.route.navigateByUrl('/login')
     })
+  }
+
+  search(){
+    this.route.navigateByUrl('search')
   }
 }
