@@ -32,16 +32,16 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="onClick('date', 'Today')">Today</ion-button>
-        <ion-button (click)="openCalendar()">Enter date</ion-button>
+        <ion-button [ngClass]="currentData.date == 'Today'? 'selected': ''" (click)="onClick('date', 'Today')">Today</ion-button>
+        <ion-button [ngClass]="currentData.date == 'Enter date'? 'selected': ''" (click)="openCalendar()">Enter date</ion-button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="onClick('date', 'Anytime')">Anytime</ion-button>
-        <ion-button (click)="onClick('date', 'Morning')">Morning</ion-button>
-        <ion-button (click)="onClick('date', 'Afternoon')">Afternoon</ion-button>
+        <ion-button [ngClass]="currentData.time == 'Anytime'? 'selected': ''" (click)="onClick('time', 'Anytime')">Anytime</ion-button>
+        <ion-button [ngClass]="currentData.time == 'Morning'? 'selected': ''" (click)="onClick('time', 'Morning')">Morning</ion-button>
+        <ion-button [ngClass]="currentData.time == 'Afternoon'? 'selected': ''" (click)="onClick('time', 'Afternoon')">Afternoon</ion-button>
       </ion-col>
     </ion-row>
 
@@ -56,9 +56,9 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="onClick('gender', 'Anyone')">Anyone</ion-button>
-        <ion-button (click)="onClick('gender', 'Male')">Male</ion-button>
-        <ion-button (click)="onClick('gender', 'Female')">Female</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'Anyone'? 'selected': ''" (click)="onClick('gender', 'Anyone')">Anyone</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'Male'? 'selected': ''" (click)="onClick('gender', 'Male')">Male</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'Female'? 'selected': ''" (click)="onClick('gender', 'Female')">Female</ion-button>
       </ion-col>
     </ion-row>
 
@@ -73,9 +73,9 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="onClick('age', 'Anyone')">Anyone</ion-button>
-        <ion-button (click)="onClick('age', '18-24')">18-24</ion-button>
-        <ion-button (click)="onClick('age', '25-40')">25-40</ion-button>
+        <ion-button [ngClass]="currentData.age == 'Anyone'? 'selected': ''" (click)="onClick('age', 'Anyone')">Anyone</ion-button>
+        <ion-button [ngClass]="currentData.age == '18-24'? 'selected': ''" (click)="onClick('age', '18-24')">18-24</ion-button>
+        <ion-button [ngClass]="currentData.age == '25-40'? 'selected': ''" (click)="onClick('age', '25-40')">25-40</ion-button>
       </ion-col>
     </ion-row>
     
@@ -117,7 +117,7 @@
     </ion-card>
 
     <div style="margin-right: 40px;">
-      <ion-textarea class="custom-textarea" placeholder="Type something here"></ion-textarea>
+      <ion-textarea class="custom-textarea" (change)="onClick('description', $event)" placeholder="Type something here"></ion-textarea>
     </div>
 
     <ion-row style="margin-top: 15px;">

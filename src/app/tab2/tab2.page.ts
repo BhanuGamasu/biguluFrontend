@@ -12,7 +12,7 @@ export class Tab2Page {
   inputValue: string='';
   createActivity: FormGroup;
   activityData: any;
-  currentData:any  = {date: '', gender:'', age: '', count: '', category: '', location: 'Miyapur Hyderabad'};
+  currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
   constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController) {}
 
   ngOninit(){
@@ -49,7 +49,7 @@ export class Tab2Page {
 
   onClick(key: any, value: any) {
     console.log(key, value, this.currentData[key]);
-    if (key == 'count'){
+    if (key == 'count' || key == 'description'){
       value = value.target.value;
     }
     this.currentData[key] = value;
