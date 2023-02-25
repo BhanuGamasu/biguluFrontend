@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
+// import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     FormsModule,
     ReactiveFormsModule, 
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule
+    Tab2PageRoutingModule,
+    // Geolocation,
   ],
   declarations: [Tab2Page]
 })

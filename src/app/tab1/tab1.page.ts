@@ -38,4 +38,8 @@ export class Tab1Page {
   search(){
     this.route.navigateByUrl('search')
   }
+
+  activityOverview(){
+    this.route.navigateByUrl('activity-overview')
+  }
 }

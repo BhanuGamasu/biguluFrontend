@@ -33,7 +33,7 @@
     <ion-row>
       <ion-col>
         <ion-button [ngClass]="currentData.date == 'Today'? 'selected': ''" (click)="onClick('date', 'Today')">Today</ion-button>
-        <ion-button [ngClass]="currentData.date == 'Enter date'? 'selected': ''" (click)="openCalendar()">Enter date</ion-button>
+        <ion-button [ngClass]="currentData.date != 'Today'? 'selected': ''" (click)="openCalendar()">Enter date</ion-button>
       </ion-col>
     </ion-row>
 

@@ -1,0 +1,16 @@
+ion-button {
+    height: 45px;
+    text-align: left;
+}
+
+.round_new{
+    max-width: 100px;
+    height: 100px;
+}
+
+.center_align_icon_text{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
