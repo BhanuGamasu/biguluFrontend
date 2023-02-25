@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
-// import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-tab2',
@@ -19,11 +17,10 @@ export class Tab2Page {
   lng: any;
   city: any;
   town: any;
+  dateNew: any;
+  selectedTimeSpan: any;
   currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
-  constructor(
-    // private geolocation: Geolocation, 
-    // private http: HttpClient, 
-    private route: Router, private fb: FormBuilder, private alertController: AlertController) {}
+  constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController, private authService: AuthServiceService) {}
 
   ngOninit(){
     // this.getLocation();
@@ -71,20 +68,25 @@ export class Tab2Page {
   publish(){
     // localStorage.setItem('inputValue', this.inputValue);
     // console.log('hiiii', this.createActivity.value, 9898);
-    for (let key in this.currentData) {
-      if (this.currentData[key] == '') {
-        return;
+    // for (let key in this.currentData) {
+    //   if (this.currentData[key] == '') {
+    //     return;
+    //   }
+    // }
+    // this.activityData = localStorage.getItem('activity')
+    this.authService.createActivity(this.currentData).subscribe(val => {
+      if (val.success) {
+        this.route.navigateByUrl('tabs/tab1')
       }
-    }
-    this.activityData = localStorage.getItem('activity')
-    this.activityData = JSON.parse(this.activityData);
-    console.log(this.currentData, this.activityData, 5678);
-    if (this.activityData == undefined) {
-      this.activityData = []
-    }
-    this.activityData.push(this.currentData);
-    localStorage.setItem('activity', JSON.stringify(this.activityData));
-    this.route.navigateByUrl('tabs/tab1')
+    })
+    // this.activityData = JSON.parse(this.activityData);
+    // console.log(this.currentData, this.activityData, 5678);
+    // if (this.activityData == undefined) {
+    //   this.activityData = []
+    // }
+    // this.activityData.push(this.currentData);
+    // localStorage.setItem('activity', JSON.stringify(this.activityData));
+    // this.route.navigateByUrl('tabs/tab1')
   }
 
   onClick(key: any, value: any) {
@@ -95,12 +97,26 @@ export class Tab2Page {
     this.currentData[key] = value;
   }
   async openCalendar() {
+    const presentDate = new Date();
+    const formattedPresentDate = presentDate.toISOString().split('T')[0];
+  
     const alert = await this.alertController.create({
-      header: 'Select Date',
+      header: 'Select Date and Time',
       inputs: [
         {
           name: 'date',
           type: 'date',
+          min: formattedPresentDate,
+        },
+        {
+          name: 'startTime',
+          type: 'time',
+          placeholder: 'Start Time',
+        },
+        {
+          name: 'endTime',
+          type: 'time',
+          placeholder: 'End Time',
         },
       ],
       buttons: [
@@ -111,15 +127,31 @@ export class Tab2Page {
         {
           text: 'Ok',
           handler: data => {
-            console.log('Selected date:', data.date);
-            this.currentData.date = data.date
+            const selectedDate = new Date(data.date);
+            const startTime = data.startTime;
+            const endTime = data.endTime;
+            
+            const startDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), startTime.split(':')[0], startTime.split(':')[1]);
+            const endDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), endTime.split(':')[0], endTime.split(':')[1]);
+            
+            const formattedDate = startDateTime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const formattedStartTime = startDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            const formattedEndTime = endDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            
+            const formattedTimeSpan = `${formattedStartTime} - ${formattedEndTime}`;
+            this.selectedTimeSpan = formattedTimeSpan;
+            const formattedDateTimeSpan = `${formattedDate} ${formattedTimeSpan}`;
+        
+            this.dateNew = selectedDate;
+            this.currentData.date = selectedDate;
+            this.currentData.timeSpan = formattedTimeSpan;
           },
         },
       ],
     });
   
     await alert.present();
-  }
+  }  
   
 
 }

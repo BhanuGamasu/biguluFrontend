@@ -29,6 +29,10 @@ const routes: Routes = [
   },  {
     path: 'activity-overview',
     loadChildren: () => import('./activity-overview/activity-overview.module').then( m => m.ActivityOverviewPageModule)
+  },
+  {
+    path: 'user-details',
+    loadChildren: () => import('./user-details/user-details.module').then( m => m.UserDetailsPageModule)
   }
 
 

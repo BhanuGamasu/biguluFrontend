@@ -12,7 +12,7 @@
         <ion-icon style="height: 36px; width: 36px;" name="search-outline" (click)="search()"></ion-icon>
       </ion-col>
       <ion-col class="center_align" size="3">
-        <ion-badge color="primary">22k</ion-badge>
+        <ion-badge (click)="userDetails()" color="primary">22k</ion-badge>
       </ion-col>
       <ion-col class="center_align" size="3">
         <ion-button (click)="signOut()">signOut</ion-button>
@@ -50,7 +50,7 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
       </ion-label>
       <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">{{item.category}}</ion-text>
+        <ion-text class="sub_heading">{{item.activityType}}</ion-text>
       </ion-col>
       <ion-col style="display: flex; justify-content: end;">
         <ion-text>seen 1 day back</ion-text>
