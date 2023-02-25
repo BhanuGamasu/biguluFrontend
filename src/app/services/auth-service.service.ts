@@ -56,6 +56,16 @@ export class AuthServiceService {
     this.route.navigate(['login']);
   }
 
+  checkToken() {
+    if (localStorage.getItem('token')) {
+      // this.authenticationState.next(true);
+      return true;
+    } else {
+      // this.authenticationState.next(false);
+      return false;
+    }
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }

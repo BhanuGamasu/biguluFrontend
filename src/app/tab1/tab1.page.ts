@@ -22,11 +22,11 @@ export class Tab1Page {
     // this.activityData = localStorage.getItem('activity');
     // this.activityData = JSON.parse(this.activityData);
     console.log('hiiiiiiiiiiii');
-    this.authService.getAllActivities().subscribe(val => {
-      if (val.success) {
-        // this.activityData = val.data[0]? val.data: [];
-      }
-    })
+    // this.authService.getAllActivities().subscribe(val => {
+    //   if (val.success) {
+    //     // this.activityData = val.data[0]? val.data: [];
+    //   }
+    // })
     // setInterval(() => {
     //   this.activityData = localStorage.getItem('activity');
     // this.activityData = JSON.parse(this.activityData);    
@@ -46,6 +46,7 @@ export class Tab1Page {
   async signOut() {
     GoogleAuth.signOut().then(res => {
       console.log(res, 'Signed out');
+      this.authService.logout();
       this.route.navigateByUrl('/login')
     })
   }

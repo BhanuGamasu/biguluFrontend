@@ -23,7 +23,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     const authReq = req.clone(
       {
         setHeaders: {
-          Authorization: `${authService.getToken()}`,
+          Authorization: `JWT ${authService.getToken()}`,
           headers: 'Content-Type: application/json', 'Access-Control-Allow-Origin': '*'
         }
       }
