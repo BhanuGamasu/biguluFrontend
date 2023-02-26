@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'
+// import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -69,4 +70,53 @@ export class AuthServiceService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  // getLocation() {
+  //   let data: any = {}
+  //   this.geolocation.getCurrentPosition().then((resp) => {
+  //     data.lat = resp.coords.latitude;
+  //     data.lng = resp.coords.longitude;
+  //     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.lat},${data.lng}&key=AIzaSyDHD_UputIOSkl8aL6Q7zH30Yypkw-5lO4`;
+
+  //   this.http.get(url).subscribe((data1: any) => {
+  //     const address_components = data1.results[0].address_components;
+
+  //     for (const component of address_components) {
+  //       if (component.types.indexOf('locality') > -1) {
+  //         data.city = component.long_name;
+  //       }
+  //       if (component.types.indexOf('sublocality') > -1) {
+  //         data.town = component.long_name;
+  //       }
+  //     }
+
+  //     console.log('City:', data.city);
+  //     console.log('Town:', data.town);
+  //     return data;
+  //   });
+  //     // this.getCityTownName(data);
+  //   }).catch((error) => {
+  //     console.log('Error getting location', error);
+  //   });
+  // }
+
+  // getCityTownName(data1: any) {
+  //   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data1.lat},${data1.lng}&key=AIzaSyDHD_UputIOSkl8aL6Q7zH30Yypkw-5lO4`;
+
+  //   this.http.get(url).subscribe((data: any) => {
+  //     const address_components = data.results[0].address_components;
+
+  //     for (const component of address_components) {
+  //       if (component.types.indexOf('locality') > -1) {
+  //         data1.city = component.long_name;
+  //       }
+  //       if (component.types.indexOf('sublocality') > -1) {
+  //         data1.town = component.long_name;
+  //       }
+  //     }
+
+  //     console.log('City:', data1.city);
+  //     console.log('Town:', data1.town);
+  //   });
+  // }
 }

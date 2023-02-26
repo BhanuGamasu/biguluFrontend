@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'user-details',
     canActivate:[AuthGuardService],
     loadChildren: () => import('./user-details/user-details.module').then( m => m.UserDetailsPageModule)
+  },
+  {
+    path: 'profile-overview',
+    loadChildren: () => import('./profile-overview/profile-overview.module').then( m => m.ProfileOverviewPageModule)
   }
 
 

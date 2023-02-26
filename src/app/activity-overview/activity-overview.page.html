@@ -13,7 +13,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="2.5">
+      <!-- <ion-col size="2.5">
         <ion-icon name="star-outline" class="svg_size"></ion-icon>
         <ion-label style="font-size: 12px;">Favourate</ion-label>
       </ion-col>
@@ -24,6 +24,30 @@
       <ion-col size="2.5">
         <ion-icon name="share-social-outline" class="svg_size"></ion-icon>
         <ion-label style="font-size: 12px;">Share</ion-label>
+      </ion-col> -->
+      <ion-col size="2.5">
+        <div class="center_align">
+          <ion-icon name="star-outline" class="svg_size"></ion-icon>
+        </div>
+        <ion-col class="center_align">
+          <ion-label style="font-size: 12px;">Favourate</ion-label>
+        </ion-col>
+      </ion-col>
+      <ion-col size="2.5">
+        <div class="center_align">
+          <ion-icon name="alert-circle-outline" class="svg_size"></ion-icon>
+        </div>
+        <ion-col class="center_align">
+          <ion-label style="font-size: 12px;">Report</ion-label>
+        </ion-col>
+      </ion-col>
+      <ion-col size="2.5">
+        <div class="center_align">
+          <ion-icon name="share-social-outline" class="svg_size"></ion-icon>
+        </div>
+        <ion-col class="center_align">
+          <ion-label style="font-size: 12px;">Share</ion-label>
+        </ion-col>
       </ion-col>
       <ion-col size="4.5" class="col_center_align">
         <ion-button>JOIN NOW</ion-button>
@@ -39,7 +63,7 @@
       </ion-col>
     </ion-row> -->
 
-    <div style="display: grid; align-items: center; margin-top: 20px;" class="activity_selection">
+    <div style="display: grid; align-items: center; margin-top: 20px;">
       <ion-row>
         <ion-col class="col_center_align">
           <ion-icon name="beer-outline" style="height: 20px; width: 20px;"></ion-icon>
@@ -51,7 +75,7 @@
       </ion-row>
     </div>
 
-    <div style="display: grid; align-items: center; margin-top: 20px;" class="activity_selection">
+    <div style="display: grid; align-items: center; margin-top: 20px;">
       <ion-row>
         <ion-col class="col_center_align">
           <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
@@ -64,7 +88,7 @@
       </ion-row>
     </div>
 
-    <div style="display: grid; align-items: center; margin-top: 20px;" class="activity_selection">
+    <div style="display: grid; align-items: center; margin-top: 20px;">
       <ion-row>
         <ion-col class="col_center_align" size="8">
           <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
@@ -125,7 +149,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col class="center_align_icon_text">
+      <ion-col class="center_align_icon_text" (click)="getProfileOverview()">
         <ion-icon class="svg_size" name="person-circle-outline"></ion-icon>
         <ion-label>View Profile</ion-label>
       </ion-col>

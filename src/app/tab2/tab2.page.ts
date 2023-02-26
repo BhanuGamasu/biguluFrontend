@@ -23,7 +23,9 @@ export class Tab2Page {
   constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController, private authService: AuthServiceService) {}
 
   ngOninit(){
-    // this.getLocation();
+    // let data = this.authService.getLocation();
+    // console.log(data, 'data');
+    
     // this.publish()
     // this.createActivity = this.fb.group({
       // date: ['', Validators.required],
@@ -45,8 +47,8 @@ export class Tab2Page {
   //   });
   // }
 
-  getCityTownName() {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.lng}&key=AIzaSyDHD_UputIOSkl8aL6Q7zH30Yypkw-5lO4`;
+  // getCityTownName() {
+  //   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.lng}&key=AIzaSyDHD_UputIOSkl8aL6Q7zH30Yypkw-5lO4`;
 
     // this.http.get(url).subscribe((data: any) => {
     //   const address_components = data.results[0].address_components;
@@ -63,7 +65,7 @@ export class Tab2Page {
     //   console.log('City:', this.city);
     //   console.log('Town:', this.town);
     // });
-  }
+  // }
 
   publish(){
     // localStorage.setItem('inputValue', this.inputValue);
@@ -112,6 +114,7 @@ export class Tab2Page {
           name: 'startTime',
           type: 'time',
           placeholder: 'Start Time',
+          min: '03:00'
         },
         {
           name: 'endTime',
@@ -151,7 +154,9 @@ export class Tab2Page {
     });
   
     await alert.present();
-  }  
+  }
+
+
   
 
 }

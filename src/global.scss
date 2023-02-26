@@ -40,6 +40,12 @@
     align-items: center;
 }
 
+.flex_start_align {
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center;
+}
+
 .col_center_align {
     display: flex;
     align-items: center;
