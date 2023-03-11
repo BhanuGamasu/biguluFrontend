@@ -1,25 +1,37 @@
 <ion-content>
   <div style="padding: 15px; height: 100%;">
+
     <ion-row>
       <ion-col>
         <ion-text class="heading">Create activity !</ion-text>
       </ion-col>
     </ion-row>
-  
-    <ion-row style="margin-top: 15px;">
-      <ion-label class="col_center_align">
-        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label>
-      <ion-col>
-        <ion-text class="sub_heading">Location</ion-text>
-      </ion-col>
-    </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-text class="heading">Miyapur Hyderabad</ion-text>
-      </ion-col>
-    </ion-row>
+    <ion-card style="display: grid; align-items: center; height: 70px !important;" class="activity_selection_new">
+      <ion-item style="--padding-start: 0px;">
+        <ion-label position="stacked" class="col_center_align">
+          <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
+          <ion-text class="sub_heading" style="padding-left: 5px;">Location</ion-text>
+        </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card style="display: grid; align-items: center; height: 70px !important;" class="activity_selection_new">
+      <ion-item style="--padding-start: 0px;">
+        <ion-label position="stacked" class="col_center_align">
+          <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
+          <ion-text class="sub_heading" style="padding-left: 5px;">Activity</ion-text>
+        </ion-label>
+        <ion-list>
+          <ion-item style="height: 35px; --padding-start: 0px;">
+            <ion-select [compareWith]="compareWith" placeholder="Select Sport" (ionChange)="handleChange($event)">
+              <ion-select-option *ngFor="let food of foods" [value]="food">{{ food.sport }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+    </ion-card>
 
     <ion-row style="margin-top: 15px;">
       <ion-label class="col_center_align">
@@ -96,33 +108,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-label class="col_center_align">
-        <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label>
-      <ion-col>
-        <ion-text class="sub_heading">Activity</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-card style="display: grid; align-items: center;" class="activity_selection">
-      <ion-row>
-        <ion-col (click)="onClick('category','Lets play cricket')" class="col_center_align">
-          <ion-icon name="bicycle-outline"></ion-icon>
-          <ion-text style="padding-left: 5px;">Let's play cricket</ion-text>
-        </ion-col>
-        <ion-col (click)="onClick('category', 'Casual Meetup')" style="display: flex; flex-direction: row; justify-content: end;" class="col_center_align">
-          <ion-icon name="people-outline"></ion-icon>
-          <ion-text style="padding-left: 5px;">Casual Meetup</ion-text>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <div style="margin-right: 40px;">
-      <ion-textarea class="custom-textarea" (change)="onClick('description', $event)" placeholder="Type something here"></ion-textarea>
+    <div style="margin-right: 40px; margin-top: 10px;">
+      <ion-textarea class="custom-textarea" (change)="onClick('description', $event)" placeholder="200 Words"></ion-textarea>
     </div>
 
-    <ion-row style="margin-top: 15px;">
+    <ion-row style="margin-top: 5px;">
       <ion-col class="center_align">
         <ion-button (click)="publish()">Publish</ion-button>
       </ion-col>

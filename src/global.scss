@@ -93,3 +93,30 @@ ion-input.custom {
     height: 40px;
     width: 40px;
 }
+
+.native-textarea.sc-ion-textarea-ios {
+    height: 75px !important;
+}
+
+.activity_selection_new {
+    border-width: 1px;
+    border-style: inset;
+    border-color: black;
+    border-radius: 14px;
+    height: 50px;
+    margin: 5px 40px 15px 0px;
+    padding: 10px;
+    box-shadow: none;
+}
+
+.input_custom_playerCount{
+    border-width: 1px;
+    border-style: inset;
+    border-color: black;
+    border-radius: 5px;
+    height: 39px;
+    width: 68px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}

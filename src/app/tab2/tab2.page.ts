@@ -22,6 +22,32 @@ export class Tab2Page {
   currentData:any  = {date: 'Today', startDate: '', endDate: '', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
   startDate: Date;
   endDate: Date;
+  // currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
+  currentSport: any;
+
+  foods = [
+    {
+      id: 1,
+      sport: 'Badminton',
+    },
+    {
+      id: 2,
+      sport: 'Cricket',
+    },
+    {
+      id: 3,
+      sport: 'Football',
+    },
+    {
+      id: 4,
+      sport: 'Handball'
+    },
+    {
+      id: 5,
+      sport: 'Basketball'
+    }
+    
+  ];
   constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController, private authService: AuthServiceService) {}
 
   ngOninit(){
@@ -173,7 +199,13 @@ export class Tab2Page {
     await alert.present();
   }
 
+  compareWith(o1:any, o2:any) {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
 
+  handleChange(ev:any) {
+    this.currentSport = ev.target.value;
+  }
   
 
 }

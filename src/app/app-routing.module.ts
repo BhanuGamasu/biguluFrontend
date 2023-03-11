@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'profile-overview',
     loadChildren: () => import('./profile-overview/profile-overview.module').then( m => m.ProfileOverviewPageModule)
+  },
+  {
+    path: 'activity-request-overview',
+    loadChildren: () => import('./activity-request-overview/activity-request-overview.module').then( m => m.ActivityRequestOverviewPageModule)
   }
 
 

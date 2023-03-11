@@ -1,1 +1,16 @@
-<h1>tab3</h1>
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Locationnn
+      </ion-title>
+    </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+    <ion-searchbar [(ngModel)]="search" (keypress)="onSearchInput()" placeholder="Search for a location"></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let prediction of predictions" (click)="onPredictionSelect(prediction)">
+        {{prediction.description}}
+      </ion-item>
+    </ion-list>
+</ion-content>

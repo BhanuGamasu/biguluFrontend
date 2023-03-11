@@ -62,4 +62,8 @@ export class Tab1Page {
   userDetails(){
     this.route.navigateByUrl('user-details')
   }
+
+  navigateRequests(){
+    this.route.navigateByUrl('activity-request-overview')
+  }
 }
