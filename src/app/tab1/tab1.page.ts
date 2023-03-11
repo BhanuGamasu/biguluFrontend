@@ -55,8 +55,8 @@ export class Tab1Page {
     this.route.navigateByUrl('search')
   }
 
-  activityOverview(){
-    this.route.navigateByUrl('activity-overview')
+  activityOverview(id: any){
+    this.route.navigateByUrl('activity-overview/'+ id)
   }
 
   userDetails(){

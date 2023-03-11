@@ -19,7 +19,9 @@ export class Tab2Page {
   town: any;
   dateNew: any;
   selectedTimeSpan: any;
-  currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
+  currentData:any  = {date: 'Today', startDate: '', endDate: '', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
+  startDate: Date;
+  endDate: Date;
   constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController, private authService: AuthServiceService) {}
 
   ngOninit(){
@@ -70,11 +72,11 @@ export class Tab2Page {
   publish(){
     // localStorage.setItem('inputValue', this.inputValue);
     // console.log('hiiii', this.createActivity.value, 9898);
-    // for (let key in this.currentData) {
-    //   if (this.currentData[key] == '') {
-    //     return;
-    //   }
-    // }
+    for (let key in this.currentData) {
+      if (this.currentData[key] == '') {
+        return;
+      }
+    }
     // this.activityData = localStorage.getItem('activity')
     this.authService.createActivity(this.currentData).subscribe(val => {
       if (val.success) {
@@ -133,7 +135,19 @@ export class Tab2Page {
             const selectedDate = new Date(data.date);
             const startTime = data.startTime;
             const endTime = data.endTime;
+            console.log(data, 878);
+            this.startDate = selectedDate;
+            this.startDate.setHours(data.startTime?.slice(0,2));
+            this.startDate.setMinutes(data.startTime?.slice(3));
+            // this.startDate.setSeconds(0);
+            this.endDate = selectedDate
+
+            this.endDate.setHours(data.endTime?.slice(0,2));
+            this.endDate.setMinutes(data.endTime?.slice(3));
+            console.log(selectedDate, this.startDate, this.endDate, 6876);
             
+            this.currentData.startDate = this.startDate;
+            this.currentData.endDate = this.endDate
             const startDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), startTime.split(':')[0], startTime.split(':')[1]);
             const endDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), endTime.split(':')[0], endTime.split(':')[1]);
             
@@ -145,7 +159,10 @@ export class Tab2Page {
             this.selectedTimeSpan = formattedTimeSpan;
             const formattedDateTimeSpan = `${formattedDate} ${formattedTimeSpan}`;
         
-            this.dateNew = selectedDate;
+            // this.dateNew = selectedDate;
+            // console.log(this.dateNew, selectedDate, formattedTimeSpan, 'dqdq');
+            // selectedDate.setHours()
+            // this.startDate = selectedDate
             this.currentData.date = selectedDate;
             this.currentData.timeSpan = formattedTimeSpan;
           },

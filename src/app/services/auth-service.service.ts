@@ -30,23 +30,31 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "auth/login", data);
   }
 
+  getAcivityInfo(activityId: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/getAcivityInfo", activityId);
+  }
+
+  updateVisData(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/updateActivity", data)
+  }
+
   createActivity(data: any): Observable<any> {
-    let user: any = localStorage.getItem('user');
-    user = JSON.parse(user);
-    console.log(user);
+    // let user: any = localStorage.getItem('user');
+    // user = JSON.parse(user);
+    // console.log(user);
     
-    let a = {
-      location: 'hyderabad',
-      activityType: 'cricket',
-      date: 'today',
-      time: 'evening',
-      genderChoice: 'female',
-      age: '18-24',
-      maxPeople: 2,
-      aboutActivity: 'nothing',
-      data: user
-    }
-    return this.http.post(environment.baseUrl + 'auth/createActivity', a);
+    // let a = {
+    //   location: 'hyderabad',
+    //   activityType: 'cricket',
+    //   date: 'today',
+    //   time: 'evening',
+    //   genderChoice: 'female',
+    //   age: '18-24',
+    //   maxPeople: 2,
+    //   aboutActivity: 'nothing',
+    //   data: user
+    // }
+    return this.http.post(environment.baseUrl + 'auth/createActivity', data);
   }
   getAllActivities(): Observable<any> {
     return this.http.get(environment.baseUrl + 'auth/getAllActivities');

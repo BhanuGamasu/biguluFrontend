@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
   },
   {
-    path: 'activity-overview',
+    path: 'activity-overview/:id',
     canActivate:[AuthGuardService],
     loadChildren: () => import('./activity-overview/activity-overview.module').then( m => m.ActivityOverviewPageModule)
   },
