@@ -1,33 +1,34 @@
 <ion-content>
-  <ion-row style="border-bottom: none !important; width: 100%;">
+  <ion-row *ngIf="showTop" style="border-bottom: none !important; width: 100%;">
     <ion-col class="center_align">
-      <div class="round"></div>
+      <div *ngIf="!userData.imageUrl" class="round"></div>
+      <img [src]="userData.imageUrl" alt="profile"/>
     </ion-col>
   </ion-row>
-  <form>
-    <div style="margin: 20px;">
+  <form [formGroup]="userDataForm">
+    <div *ngIf="showTop" style="margin: 20px;">
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Name</ion-label>
-          <ion-input placeholder="Enter Name"></ion-input>
+          <ion-input formControlName="userName" placeholder="Enter Name"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
-          <ion-input placeholder="Enter Email"></ion-input>
+          <ion-input formControlName="email" placeholder="Enter Email"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Mobile</ion-label>
-          <ion-input placeholder="Enter Mobile"></ion-input>
+          <ion-input formControlName="mobile" placeholder="Enter Mobile"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">City</ion-label>
-          <ion-input placeholder="Enter City"></ion-input>
+          <ion-input formControlName="city" placeholder="Enter City"></ion-input>
         </ion-item>
       </ion-card>
   
@@ -42,9 +43,9 @@
   
       <ion-row>
         <ion-col>
-          <ion-button>Anyone</ion-button>
-          <ion-button>Male</ion-button>
-          <ion-button>Female</ion-button>
+          <ion-button [ngClass]="tabData.gender == 'anyone'? 'selected': ''" (click)="onClickTab('gender', 'anyone')">Anyone</ion-button>
+          <ion-button [ngClass]="tabData.gender == 'male'? 'selected': ''" (click)="onClickTab('gender', 'male')">Male</ion-button>
+          <ion-button [ngClass]="tabData.gender == 'female'? 'selected': ''" (click)="onClickTab('gender', 'female')">Female</ion-button>
         </ion-col>
       </ion-row>
   
@@ -59,65 +60,65 @@
   
       <ion-row>
         <ion-col>
-          <ion-button>Anyone</ion-button>
-          <ion-button>18-24</ion-button>
-          <ion-button>25-40</ion-button>
+          <ion-button [ngClass]="tabData.age == 'anyone'? 'selected': ''" (click)="onClickTab('age', 'anyone')">Anyone</ion-button>
+          <ion-button [ngClass]="tabData.age == '18-24'? 'selected': ''" (click)="onClickTab('age', '18-24')">18-24</ion-button>
+          <ion-button [ngClass]="tabData.age == '25-40'? 'selected': ''" (click)="onClickTab('age', '25-40')">25-40</ion-button>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col class="flex_end_align">
-          <ion-icon name="chevron-down-outline" style="height: 40px; width: 40px;"></ion-icon>
+          <ion-icon (click)="showTop = !showTop" name="chevron-down-outline" style="height: 40px; width: 40px;"></ion-icon>
         </ion-col>
       </ion-row>
     </div>
 
-    <div style="margin: 20px;">
+    <div *ngIf="!showTop" style="margin: 20px;">
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Max two words what you want to do?</ion-label>
-          <ion-input></ion-input>
+          <ion-input maxlength="25" formControlName="aboutMe"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center; height: 140px;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Bio</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-textarea maxlength="200" formControlName="bio"></ion-textarea>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">facebook.com/</ion-label>
-          <ion-input></ion-input>
+          <ion-input formControlName="faceBookId"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Instgram.com/</ion-label>
-          <ion-input></ion-input>
+          <ion-input formControlName="instagramId"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">YouTube.com/</ion-label>
-          <ion-input></ion-input>
+          <ion-input formControlName="youTubeId"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
           <ion-label position="stacked">Twitter.com/</ion-label>
-          <ion-input></ion-input>
+          <ion-input formControlName="twitterId"></ion-input>
         </ion-item>
       </ion-card>
       <ion-row>
         <ion-col size="3" class="flex_start_align">
-          <ion-icon name="chevron-up-outline" class="svg_size"></ion-icon>
+          <ion-icon (click)="showTop = !showTop" name="chevron-up-outline" class="svg_size"></ion-icon>
         </ion-col>
         <ion-col size="7" class="flex_end_align">
           <ion-label style="font-size: 22px !important; font-weight: 700;">Join Now</ion-label>
         </ion-col>
         <ion-col size="2" class="flex_end_align">
-          <ion-icon style="height: 54px; width: 54px;" name="arrow-forward-circle-outline"></ion-icon>
+          <ion-icon (click)="submit()" style="height: 54px; width: 54px;" name="arrow-forward-circle-outline"></ion-icon>
         </ion-col>
       </ion-row>
     </div>

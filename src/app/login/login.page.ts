@@ -36,12 +36,17 @@ export class LoginPage implements OnInit {
       // }, err => {
       //   console.log(err);
       // })
-      localStorage.setItem('user', JSON.stringify(res));
-      this.authService.login(res).subscribe(val => {
-        if (val.success) {
+      this.authService.checkUser(res).subscribe(val => {
+        localStorage.setItem('user', JSON.stringify(res));
+        if (val.data == 'new') {
+          console.log(val, 'hiii');
+          this.router.navigate(['/user-details'])
+        } else {
           localStorage.setItem('token', val.data);
           this.router.navigateByUrl('/tabs/tab1')
         }
+      }, err => {
+        console.log(err);
       })
     }).catch(err => {
       console.log(err, 'signIn failed');

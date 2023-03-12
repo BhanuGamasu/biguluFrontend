@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthServiceService } from '../services/auth-service.service';
+
+declare var google: any;
 
 @Component({
   selector: 'app-tab2',
@@ -48,7 +50,18 @@ export class Tab2Page {
     }
     
   ];
-  constructor(private route: Router, private fb: FormBuilder, private alertController: AlertController, private authService: AuthServiceService) {}
+  search: any;
+  autocompleteService: any;
+  predictions: any;
+  constructor(
+    private route: Router, 
+    public loadingCtrl: LoadingController, 
+    private fb: FormBuilder, 
+    private alertController: AlertController, 
+    private authService: AuthServiceService
+    ) {
+      this.autocompleteService = new google.maps.places.AutocompleteService();
+    }
 
   ngOninit(){
     // let data = this.authService.getLocation();
@@ -98,11 +111,13 @@ export class Tab2Page {
   publish(){
     // localStorage.setItem('inputValue', this.inputValue);
     // console.log('hiiii', this.createActivity.value, 9898);
-    for (let key in this.currentData) {
-      if (this.currentData[key] == '') {
-        return;
-      }
-    }
+    console.log(this.currentData, 676);
+    
+    // for (let key in this.currentData) {
+    //   if (this.currentData[key] == '') {
+    //     return;
+    //   }
+    // }
     // this.activityData = localStorage.getItem('activity')
     this.authService.createActivity(this.currentData).subscribe(val => {
       if (val.success) {
@@ -117,6 +132,36 @@ export class Tab2Page {
     // this.activityData.push(this.currentData);
     // localStorage.setItem('activity', JSON.stringify(this.activityData));
     // this.route.navigateByUrl('tabs/tab1')
+  }
+
+  async onSearchInput() {
+    if (this.search?.length > 0) {
+      const loading = await this.loadingCtrl.create();
+      this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions:any, status:any) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          this.predictions = predictions;
+        } else {
+          this.predictions = [];
+        }
+      });
+    } else {
+      this.predictions = [];
+    }
+  }
+
+  onPredictionSelect(prediction: any) {
+    console.log('Selected prediction:', prediction);
+  
+    const placeService = new google.maps.places.PlacesService(document.createElement('div'));
+    placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        this.currentData.location = prediction.structured_formatting.main_text
+        console.log('Latitude:', placeResult.geometry.location.lat());
+        console.log('Longitude:', placeResult.geometry.location.lng());
+        console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
+      }
+    });
+    this.predictions = []
   }
 
   onClick(key: any, value: any) {
@@ -205,6 +250,7 @@ export class Tab2Page {
 
   handleChange(ev:any) {
     this.currentSport = ev.target.value;
+    this.currentData.activityType = this.currentSport.sport
   }
   
 

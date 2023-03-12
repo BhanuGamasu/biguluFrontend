@@ -13,21 +13,33 @@ export class AuthServiceService {
   constructor(private http: HttpClient, private route: Router) { }
 
   login(loginData: any): Observable<any> {
-    let data = {
-      name: 'prem kumar',
-      ...loginData,
-      mobile: '8186998684',
-      city: 'kakinada',
-      gender: 'male',
-      age: 24,
-      aboutMe: 'nothing',
-      bio: 'some biodata',
-      faceBookId: '',
-      instagramId: '',
-      youTubeId: '',
-      twitterId: '',
-    }
-    return this.http.post(environment.baseUrl + "auth/login", data);
+    // let data = {
+    //   name: 'prem kumar',
+    //   ...loginData,
+    //   mobile: '8186998684',
+    //   city: 'kakinada',
+    //   gender: 'male',
+    //   age: 24,
+    //   aboutMe: 'nothing',
+    //   bio: 'some biodata',
+    //   faceBookId: '',
+    //   instagramId: '',
+    //   youTubeId: '',
+    //   twitterId: '',
+    // }
+    return this.http.post(environment.baseUrl + "auth/login", loginData);
+  }
+
+  checkUser(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/checkUser", data);
+  }
+
+  getProfile(id: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/getProfile", id);
+  }
+
+  deleteActivity(id: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/deleteActivity", id);
   }
 
   getAcivityInfo(activityId: any): Observable<any> {

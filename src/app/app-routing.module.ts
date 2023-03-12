@@ -34,15 +34,15 @@ const routes: Routes = [
   },
   {
     path: 'user-details',
-    canActivate:[AuthGuardService],
+    // canActivate:[AuthGuardService],
     loadChildren: () => import('./user-details/user-details.module').then( m => m.UserDetailsPageModule)
   },
   {
-    path: 'profile-overview',
+    path: 'profile-overview/:id',
     loadChildren: () => import('./profile-overview/profile-overview.module').then( m => m.ProfileOverviewPageModule)
   },
   {
-    path: 'activity-request-overview',
+    path: 'invites/:id',
     loadChildren: () => import('./activity-request-overview/activity-request-overview.module').then( m => m.ActivityRequestOverviewPageModule)
   }
 

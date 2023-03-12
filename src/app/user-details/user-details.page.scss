@@ -16,3 +16,12 @@ ion-label {
 ion-item {
   --border-style: none;
 }
+
+.selected {
+  --background: #AA4A44;
+  color: white;
+}
+
+img{
+  border-radius: 50% !important;
+}

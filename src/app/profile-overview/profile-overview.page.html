@@ -6,7 +6,7 @@
         <ion-button>Cancel</ion-button>
       </ion-col>
       <ion-col size="3" class="flex_end_align">
-        <ion-icon name="close-circle-outline" class="svg_size"></ion-icon>
+        <ion-icon (click)="back()" name="close-circle-outline" class="svg_size"></ion-icon>
       </ion-col>
     </ion-row>
 
@@ -46,16 +46,16 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-label class="heading">Bhanu Prakash</ion-label><br>
+          <ion-label class="heading">{{userData?.name}}</ion-label><br>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label>
             <ion-row>
-                <ion-label>Male</ion-label>
+                <ion-label>{{userData?.gender}}</ion-label>
                 <ion-icon name="location-outline" style="height: 20px; width: 20px; padding-left: 15px;"></ion-icon>
-                <ion-text class="sub_heading" style="padding-left: 5px;">Hyderabad</ion-text>
+                <ion-text class="sub_heading" style="padding-left: 5px;">{{userData?.city}}</ion-text>
             </ion-row>
           </ion-label>
         </ion-col>
@@ -63,26 +63,27 @@
 
       <ion-row>
         <ion-col>
-          <ion-text class="sub_heading">Entrepreneur</ion-text>
+          <ion-text class="sub_heading">{{userData?.bio}}</ion-text>
         </ion-col>
       </ion-row>
       
       <ion-row>
         <ion-col>
           <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
-          <ion-text class="sub_heading" style="padding-left: 10px;">24-40</ion-text>
+          <ion-text class="sub_heading" style="padding-left: 10px;">{{userData?.age}}</ion-text>
         </ion-col>
       </ion-row>
 
     </ion-col>
     <ion-col>
-      <div class="round round_new center_align"></div>
+      <div *ngIf="!userData?.imageUrl" class="round round_new center_align"></div>
+      <img [src]="userData?.imageUrl" class="center_align round_new round" alt="profile"/>
     </ion-col>
   </ion-row>
   
   <ion-row>
     <ion-col>
-      <ion-text>jhkdfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</ion-text>
+      <ion-text>{{userData?.aboutMe}}</ion-text>
     </ion-col>
   </ion-row>
 

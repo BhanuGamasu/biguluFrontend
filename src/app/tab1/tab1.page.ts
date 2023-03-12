@@ -11,6 +11,7 @@ import { AuthServiceService } from '../services/auth-service.service';
 export class Tab1Page {
   activityData: any = [];
   constructor(private route: Router, private authService: AuthServiceService) {
+    this.ionViewWillEnter()
     // setInterval(() => {
     //   this.activityData = localStorage.getItem('activity');
     // this.activityData = JSON.parse(this.activityData);
@@ -31,6 +32,7 @@ export class Tab1Page {
     //   this.activityData = localStorage.getItem('activity');
     // this.activityData = JSON.parse(this.activityData);    
     // }, 1000)
+    this.ionViewWillEnter()
   }
 
   ionViewWillEnter() {

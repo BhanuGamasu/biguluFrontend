@@ -1,16 +1,23 @@
 <ion-content>
   <div style="padding: 15px; height: 100%;">
     <ion-row>
-      <ion-col style="padding-bottom: 0px;">
+      <ion-col size="6" style="padding-bottom: 0px;">
         <ion-text class="heading">Activity ID 112</ion-text>
+        <ion-text class="sub_heading">Published on<br> 23 January 23 3:00pm<br> seen 1 day back</ion-text>
+      </ion-col>
+      <ion-col style="text-align: center;" size="4">
+        <ion-text (click)="invitesView()" *ngIf="!activityData?.isVisitor" class="sub_heading">0{{activityData?.inviteCount || 0}}<br>invites recieved<br>0{{activityData?.accepted || 0}}/0{{activityData?.inviteCount || 0}} Accepted</ion-text>
+      </ion-col>
+      <ion-col size="2" style="text-align: end;">
+        <ion-icon class="svg_size" (click)="closeTab()" name="close-circle-outline"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <ion-text class="sub_heading">Published on<br> 23 January 23 3:00pm<br> seen 1 day back</ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <ion-row>
       <!-- <ion-col size="2.5">
@@ -51,7 +58,7 @@
         </ion-col>
       </ion-col>
       <ion-col size="4.5" class="col_center_align">
-        <ion-button (click)="updateData('response', 'notJoined')">JOIN NOW</ion-button>
+        <ion-button (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button>
       </ion-col>
     </ion-row>
 
