@@ -5,3 +5,7 @@
 ion-button {
     height: 49px !important;
 }
+
+::ng-deep .select-popover {
+    max-height: 300px !important;
+  }

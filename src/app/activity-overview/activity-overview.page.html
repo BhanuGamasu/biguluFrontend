@@ -49,7 +49,7 @@
           <ion-label style="font-size: 12px;">Report</ion-label>
         </ion-col>
       </ion-col>
-      <ion-col size="2.5">
+      <ion-col size="2.5" onclick="shareLink()">
         <div class="center_align">
           <ion-icon name="share-social-outline" class="svg_size"></ion-icon>
         </div>
@@ -58,7 +58,8 @@
         </ion-col>
       </ion-col>
       <ion-col size="4.5" class="col_center_align">
-        <ion-button (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button>
+        <!-- <ion-button (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button> -->
+        <ion-button class="responsive-button" (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button>
       </ion-col>
     </ion-row>
 
@@ -91,7 +92,7 @@
           <ion-label style="font-size: 12px;">2km</ion-label>
         </ion-col>
         <ion-col style="display: flex; flex-direction: row; justify-content: end;" class="col_center_align">
-          <ion-button style="margin-right: 0px;">Directions</ion-button>
+          <ion-button (click)="navigateTo()" style="margin-right: 0px;">Directions</ion-button>
         </ion-col>
       </ion-row>
     </div>
@@ -165,6 +166,7 @@
         <ion-icon class="svg_size" name="mic-circle-outline"></ion-icon>
         <ion-label>Call satya</ion-label>
       </ion-col>
+      <a href="tel:123-456-7890">123-456-7890</a>
     </ion-row>
 
   </div>

@@ -18,3 +18,9 @@ ion-button {
 img {
     border-radius: 50%;
 }
+
+.responsive-button {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

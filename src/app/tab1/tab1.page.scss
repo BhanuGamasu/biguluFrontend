@@ -7,3 +7,14 @@
     box-shadow: none;
     margin: 20px;
 }
+
+ion-segment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+ion-segment-button {
+    text-transform: unset;
+    white-space: nowrap;
+}

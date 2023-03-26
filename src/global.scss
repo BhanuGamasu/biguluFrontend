@@ -120,3 +120,12 @@ ion-input.custom {
     font-weight: 600;
     text-align: center;
 }
+
+.searchbar-input.sc-ion-searchbar-md {
+    padding-inline: 10px !important;
+}
+
+.searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios {
+    padding-inline-start: 0px !important;
+    background: white;
+}

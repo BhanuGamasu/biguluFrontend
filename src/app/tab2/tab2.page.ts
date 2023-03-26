@@ -27,29 +27,7 @@ export class Tab2Page {
   // currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
   currentSport: any;
 
-  foods = [
-    {
-      id: 1,
-      sport: 'Badminton',
-    },
-    {
-      id: 2,
-      sport: 'Cricket',
-    },
-    {
-      id: 3,
-      sport: 'Football',
-    },
-    {
-      id: 4,
-      sport: 'Handball'
-    },
-    {
-      id: 5,
-      sport: 'Basketball'
-    }
-    
-  ];
+  sports = ['badminton', 'cricket', 'ring', 'basketball', 'handball', 'hockey', 'golf', 'casual meetup', 'drinks']
   search: any;
   autocompleteService: any;
   predictions: any;
@@ -158,6 +136,9 @@ export class Tab2Page {
         this.currentData.location = prediction.structured_formatting.main_text
         console.log('Latitude:', placeResult.geometry.location.lat());
         console.log('Longitude:', placeResult.geometry.location.lng());
+        this.currentData.latitude = placeResult.geometry.location.lat();
+        this.currentData.longitude = placeResult.geometry.location.lng();
+        this.currentData.placeId = prediction.place_id;
         console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
       }
     });
@@ -251,6 +232,10 @@ export class Tab2Page {
   handleChange(ev:any) {
     this.currentSport = ev.target.value;
     this.currentData.activityType = this.currentSport.sport
+  }
+
+  onSportSelected(event: any) {
+    console.log(event.target.value);
   }
   
 

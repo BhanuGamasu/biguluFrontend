@@ -7,28 +7,19 @@
       </ion-col>
     </ion-row>
 
-    <ion-card style="display: grid; align-items: center; height: 70px !important;" class="activity_selection_new">
-      <ion-item style="--padding-start: 0px;">
-        <!-- <ion-label position="stacked" class="col_center_align"> -->
-          <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
-          <ion-searchbar [(ngModel)]="search" (keypress)="onSearchInput()"
-            placeholder="Search for a location"></ion-searchbar>
-        <!-- </ion-label> -->
-        <!-- <ion-input></ion-input> -->
-      </ion-item>
-      <!-- <ion-list>
-        <ion-item *ngFor="let prediction of predictions" (click)="onPredictionSelect(prediction)">
-          {{prediction.description}}
-        </ion-item>
-      </ion-list> -->
-    </ion-card>
+    <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin: 10px 40px 5px 0px;; padding: 0;" lines="none">
+      <ion-label>
+        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-searchbar [(ngModel)]="search" (keypress)="onSearchInput()" placeholder="Enter Your location" style="width: 91%; height: 100%; --box-shadow: 0; padding: 0px" search-icon="false"></ion-searchbar>
+    </ion-item>
     <ion-list>
       <ion-item *ngFor="let prediction of predictions" (click)="onPredictionSelect(prediction)">
         {{prediction.description}}
       </ion-item>
     </ion-list>
 
-    <ion-card style="display: grid; align-items: center; height: 70px !important;" class="activity_selection_new">
+    <!-- <ion-card style="display: grid; align-items: center; height: 70px !important;" class="activity_selection_new">
       <ion-item style="--padding-start: 0px;">
         <ion-label position="stacked" class="col_center_align">
           <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
@@ -42,7 +33,17 @@
           </ion-item>
         </ion-list>
       </ion-item>
-    </ion-card>
+    </ion-card> -->
+
+    <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin-right: 40px;" lines="none">
+      <ion-label>
+        <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
+        <ion-text>Select Activity</ion-text>
+      </ion-label>
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event)">
+        <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
     <ion-row style="margin-top: 15px;">
       <ion-label class="col_center_align">

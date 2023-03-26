@@ -31,7 +31,7 @@ export class ActivityOverviewPage implements OnInit {
   }
 
   getSentence() {
-    let a = this.activityData?.isVisitor ? this.activityData?.userActions?.joined ? 'I want to cancel my invite': 'JOIN NOW' : 'Cancel Activity'
+    let a = this.activityData?.isVisitor ? this.activityData?.userActions?.joined ? 'Cancel Invite': 'JOIN NOW' : 'Cancel Activity'
     // if (activityData?.userActions?.isVisitor) {
       return a
     // }
@@ -71,6 +71,25 @@ export class ActivityOverviewPage implements OnInit {
 
   invitesView() {
     this.route.navigate(['/invites/' + this.id])
+  }
+
+  navigateTo() {
+    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${this.activityData.latitude},${this.activityData.longitude}&query_place_id=${this.activityData.placeId}`;
+      window.open(mapUrl, '_blank');
+  }
+
+  shareLink() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Example Title',
+        text: 'Example Text',
+        url: 'https://example.com'
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+      console.log('Web Share API not supported.');
+    }
   }
 
 }

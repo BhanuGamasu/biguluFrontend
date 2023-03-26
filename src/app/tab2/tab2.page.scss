@@ -15,4 +15,7 @@ ion-textarea.custom-textarea {
     --background: #AA4A44;
     color: white;
   }
-  
+
+  ::ng-deep .select-popover {
+    max-height: 300px !important;
+  }
