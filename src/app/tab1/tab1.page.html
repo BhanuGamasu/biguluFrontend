@@ -4,19 +4,19 @@
       <ion-menu-button menu="main-menu" auto-hide="false"></ion-menu-button>
     </ion-buttons>
     <ion-row style="display: flex; align-items: center;">
-      <ion-col class="center_align" size="3">
-        <ion-text (click)="navigateRequests()">Map View</ion-text>
-      </ion-col>
-      <ion-col class="center_align col_center_align" size="3">
+      <ion-col class="center_align col_center_align" size="4">
         <!-- <ion-searchbar style="padding: 0px"></ion-searchbar> -->
         <ion-icon style="height: 36px; width: 36px;" name="search-outline" (click)="search()"></ion-icon>
       </ion-col>
-      <ion-col class="center_align" size="3">
+      <ion-col class="center_align" size="4">
+        <ion-text style="font-size: 18px;">Bigulu</ion-text>
+      </ion-col>
+      <ion-col class="center_align" size="4">
         <ion-badge (click)="userDetails()" color="primary">22k</ion-badge>
       </ion-col>
-      <ion-col class="center_align" size="3">
+      <!-- <ion-col class="center_align" size="3">
         <ion-button (click)="signOut()">signOut</ion-button>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-toolbar>
 </ion-header>
@@ -36,9 +36,6 @@
     <ion-segment-button value="thismonth">
       <ion-label>This Month</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="nextmonth">
-      <ion-label>Next Month</ion-label>
-    </ion-segment-button>
   </ion-segment>
 </ion-toolbar>
 
@@ -46,33 +43,39 @@
 <ion-content [fullscreen]="true">
   <ion-card class="top-container" *ngFor="let item of activityData">
     <ion-row style="padding-bottom: 7px;">
-      <ion-label class="col_center_align">
-        <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label>
-      <ion-col style="padding-left: 10px;">
+      <ion-col size="4.5" style="padding-left: 10px;" class="col_center_align">
+        <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text class="sub_heading">{{item.activityType}}</ion-text>
       </ion-col>
-      <ion-col style="display: flex; justify-content: end;">
+      <ion-col size="3">
+        <ion-text>1123 views</ion-text>
+      </ion-col>
+      <ion-col size="4.5" style="display: flex; justify-content: end;">
         <ion-text>seen 1 day back</ion-text>
       </ion-col>
     </ion-row>
     <ion-row style="padding-bottom: 7px;">
-      <ion-label class="col_center_align">
-        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label>
-      <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">{{item.location}}</ion-text>
+      <ion-col>
+        <ion-text>Posted on 11 August 2022 3:30PM</ion-text>
       </ion-col>
-      <ion-col style="display: flex; justify-content: end;">
-        <ion-text>waiting for approvel</ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text>Join friendly match at {{item.location}}, just for funn........</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col_center_align">
+        <ion-icon style="height: 20px; width: 20px; padding-right: 10px;" name="calendar-outline"></ion-icon>
+        <ion-text>27 March Thursday <br> 1:00PM - 2:00 PM</ion-text>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-label class="col_center_align">
-        <ion-icon name="time-outline" style="height: 20px; width: 20px;"></ion-icon>
+        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
       </ion-label>
       <ion-col style="padding-left: 10px;" class="col_center_align">
-        <ion-text class="sub_heading">{{item.date}}</ion-text>
+        <ion-text class="sub_heading">{{item.location}}</ion-text>
       </ion-col>
       <ion-col style="display: flex; justify-content: end;">
         <ion-icon (click)="activityOverview(item._id)" name="arrow-forward-circle-outline" style="height: 35px; width: 35px;"></ion-icon>

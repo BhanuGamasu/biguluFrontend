@@ -5,3 +5,14 @@
 .padding_new:not(.ios) {
     padding: 0px; /* Applies to android */
 }
+
+.icon_style {
+    height: 45px; 
+    width: 45px;
+    padding-right: 15px;
+}
+
+ion-label{
+    font-size: 18px;
+    font-weight: 700;
+}

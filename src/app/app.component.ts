@@ -56,4 +56,12 @@ export class AppComponent {
     let init = await GoogleAuth.initialize();
     console.log(init, 'init');
   }
+
+  async signOut() {
+    GoogleAuth.signOut().then(res => {
+      console.log(res, 'Signed out');
+      this.auth.logout();
+      this.router.navigateByUrl('/login')
+    })
+  }
 }

@@ -9,80 +9,40 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-row style="border-bottom: none !important; width: 100%;">
-          <ion-col class="center_align">
-            <div class="round"></div>
-          </ion-col>
-        </ion-row>
-        
         <div style="padding: 0px 15px;">
           <ion-row style="padding-bottom: 15px;">
-            <ion-col>
-              <ion-label>Bhanu Prakash</ion-label>
+            <ion-col class="col_center_align">
+              <ion-icon class="icon_style" name="person-circle-outline"></ion-icon>
+              <ion-label>Profile</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="padding-bottom: 55px;">
+            <ion-col class="col_center_align">
+              <ion-icon class="icon_style" name="person-circle-outline"></ion-icon>
+              <ion-label>Profile</ion-label>
+            </ion-col>
+            <ion-col class="col_center_align">
+              <ion-label style="padding-right: 5px;">3 clicks left</ion-label>
+              <ion-icon name="alert-circle-outline"></ion-icon>
             </ion-col>
           </ion-row>
 
           <ion-row style="padding-bottom: 15px;">
-            <ion-col>
-              <ion-label>970193268</ion-label>
+            <ion-col class="col_center_align">
+              <ion-icon class="icon_style" name="people-circle-outline"></ion-icon>
+              <ion-label>1121 Users</ion-label>
             </ion-col>
           </ion-row>
 
-          <ion-row style="padding-bottom: 15px;">
-            <ion-col>
-              <ion-label>bhanu@gmail.com</ion-label>
+          <ion-row style="padding-bottom: 15px;" (click)="signOut()">
+            <ion-col class="col_center_align">
+              <ion-icon class="icon_style" name="log-out-outline"></ion-icon>
+              <ion-label>Logout</ion-label>
             </ion-col>
           </ion-row>
-
-          <ion-row style="padding-bottom: 15px;">
-            <ion-col>
-              <ion-label>9-418/A, Naidu vari vedhi, Nuzevid road, vissannapeta</ion-label>
-            </ion-col>
-          </ion-row>
-          <div style="margin: 15px 0px;">
-            <ion-row>
-              <ion-col size="1">
-                <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
-              </ion-col>
-              <ion-col size="11">
-                <ion-text class="sub_heading">Gender</ion-text>
-              </ion-col>
-            </ion-row>
-        
-            <ion-row>
-              <ion-col>
-                <ion-button>Female</ion-button>
-                <ion-button>Male</ion-button>
-                <ion-button>Other</ion-button>
-              </ion-col>
-            </ion-row>
-          </div>
-
-          <div style="margin: 15px 0px;">
-            <ion-row>
-              <ion-col size="12">
-                <ion-text class="sub_heading">Age ?</ion-text>
-              </ion-col>
-            </ion-row>
-        
-            <ion-row>
-              <ion-col>
-                <ion-button>18-24</ion-button>
-                <ion-button>25-40</ion-button>
-                <ion-button>40-65</ion-button>
-              </ion-col>
-            </ion-row>
-          </div>
 
         </div>
-        <ion-row style="padding: 0px 15px 15px 0px">
-          <ion-col size="9" class="flex_end_align">
-            <ion-label style="font-size: 22px; font-weight: 700;">Create Activity</ion-label>
-          </ion-col>
-          <ion-col size="3" class="flex_end_align">
-            <ion-icon style="height: 54px; width: 54px;" name="arrow-forward-circle-outline"></ion-icon>
-          </ion-col>
-        </ion-row>
       </ion-list>
     </ion-content>
   </ion-menu>

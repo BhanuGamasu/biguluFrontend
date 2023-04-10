@@ -8,7 +8,7 @@ import { AuthServiceService } from '../services/auth-service.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page { 
   activityData: any = [];
   constructor(private route: Router, private authService: AuthServiceService) {
     this.ionViewWillEnter()
@@ -45,13 +45,13 @@ export class Tab1Page {
     })
   }
 
-  async signOut() {
-    GoogleAuth.signOut().then(res => {
-      console.log(res, 'Signed out');
-      this.authService.logout();
-      this.route.navigateByUrl('/login')
-    })
-  }
+  // async signOut() {
+  //   GoogleAuth.signOut().then(res => {
+  //     console.log(res, 'Signed out');
+  //     this.authService.logout();
+  //     this.route.navigateByUrl('/login')
+  //   })
+  // }
 
   search(){
     this.route.navigateByUrl('search')

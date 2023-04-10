@@ -118,6 +118,8 @@ export class Tab2Page {
       this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions:any, status:any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           this.predictions = predictions;
+          console.log(predictions,465654);
+          
         } else {
           this.predictions = [];
         }
