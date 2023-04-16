@@ -50,6 +50,10 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "auth/updateActivity", data)
   }
 
+  getInvitesData(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/invites", data)
+  }
+
   createActivity(data: any): Observable<any> {
     // let user: any = localStorage.getItem('user');
     // user = JSON.parse(user);

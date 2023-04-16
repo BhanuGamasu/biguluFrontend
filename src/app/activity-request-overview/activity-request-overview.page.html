@@ -6,7 +6,7 @@
       </ion-col>
       <ion-col size="3.5">
         <div class="center_align">
-          <ion-label>14</ion-label>
+          <ion-label>{{inviteData?.activityInfo?.length}}</ion-label>
         </div>
         <ion-col class="center_align">
           <ion-label style="font-size: 12px;">Received</ion-label>
@@ -14,7 +14,7 @@
       </ion-col>
       <ion-col size="3.5">
         <div class="center_align">
-          <ion-label>01/05</ion-label>
+          <ion-label>0{{inviteData?.acceptedCount}}/0{{inviteData?.count}}</ion-label>
         </div>
         <ion-col class="center_align">
           <ion-label style="font-size: 12px;">Accepted</ion-label>
@@ -22,7 +22,7 @@
       </ion-col>
       <ion-col size="3.5">
         <div class="center_align">
-          <ion-label>03</ion-label>
+          <ion-label>0{{inviteData?.cancelledCount}}</ion-label>
         </div>
         <ion-col class="center_align">
           <ion-label style="font-size: 12px;">Cancelled</ion-label>

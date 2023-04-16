@@ -160,6 +160,9 @@ export class Tab2Page {
   onClick(key: any, value: any) {
     console.log(key, value, this.currentData[key]);
     if (key == 'count' || key == 'description'){
+      if (key == 'count') {
+        value = parseInt(value.target.value);
+      }
       value = value.target.value;
     }
     this.currentData[key] = value;

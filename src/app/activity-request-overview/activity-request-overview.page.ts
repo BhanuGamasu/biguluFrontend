@@ -10,6 +10,7 @@ import { AuthServiceService } from '../services/auth-service.service';
 })
 export class ActivityRequestOverviewPage implements OnInit {
   id: string;
+  inviteData: any;
 
   constructor(private route: Router, private auth: AuthServiceService, private location: Location) { }
 
@@ -18,6 +19,13 @@ export class ActivityRequestOverviewPage implements OnInit {
 
   ionViewWillEnter() {
     this.id = this.route.url.split('/')[2];
+    this.auth.getInvitesData({activityId: this.id}).subscribe(val => {
+      if (val.success) {
+        this.inviteData = val.data[0]
+      }
+    }, err => {
+
+    })
   }
 
   goBack() {
