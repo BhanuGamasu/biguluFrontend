@@ -26,7 +26,7 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Activity</ion-text>
       </ion-label>
-      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event)">
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activityName')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -36,7 +36,7 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Category</ion-text>
       </ion-label>
-      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event)">
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activityType')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -52,21 +52,46 @@
 
     <ion-row>
       <ion-col>
-        <ion-button [ngClass]="currentData.date == 'Today'? 'selected': ''"
-          (click)="onClick('date', 'Today')">Today</ion-button>
-        <ion-button [ngClass]="currentData.date != 'Today'? 'selected': ''" (click)="openCalendar()">Enter
+        <!-- <ion-button [ngClass]="currentData.date == 'Today'? 'selected': ''"
+          (click)="onClick('date', 'Today')">Today</ion-button> -->
+        <ion-button [ngClass]="currentData.date != 'Today'? 'selected': ''" (click)="openCalendar('openModal')">Enter
           date</ion-button>
+          
       </ion-col>
     </ion-row>
-
-    <ion-row style="margin: 15px 0px;">
+    <ion-modal (willDismiss)="dismiss('openModal')" [isOpen]="openModal" id="example-modal" #modal>
+      <ng-template>
+      <ion-text (click)="openCalendar('openStartDate')" class="date-time">{{currentData.startDate | date: 'MMM d, y, h:mm a'}}</ion-text>
+      <ion-text (click)="openCalendar('openEndDate')" class="date-time">{{currentData.endDate | date: 'MMM d, y, h:mm a'}}</ion-text>
+    </ng-template>
+    </ion-modal>
+    <ion-modal (willDismiss)="dismiss('openStartDate')" (ionChange)="changeDate($event, 'startDate')" id="example-modal" #modal [isOpen]="openStartDate">
+      <ng-template>
+      <ion-datetime [showDefaultButtons]="true"></ion-datetime>
+    </ng-template>
+    </ion-modal>
+    <ion-modal (willDismiss)="dismiss('openEndDate')" (ionChange)="changeDate($event, 'endDate')" id="example-modal" #modal [isOpen]="openEndDate">
+      <ng-template>
+      <ion-datetime [showDefaultButtons]="true"></ion-datetime>
+    </ng-template>
+    </ion-modal>
+    <ion-row *ngIf="currentData.startDate" style="margin: 15px 0px;">
       <ion-col class="col_center_align">
         <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
-        <ion-text style="padding-left: 5px;">{{dateNew | date:'dd MMMM yyyy'}}</ion-text>
+        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">From Date</span> {{currentData.startDate | date:'d MMMM y  h:mm a'}}</ion-text>
       </ion-col>
-      <ion-col style="display: flex; flex-direction: row; justify-content: start;" class="col_center_align">
+      <!-- <ion-col style="display: flex; flex-direction: row; justify-content: start;" class="col_center_align">
         <ion-text style="padding-left: 5px;">{{selectedTimeSpan}}</ion-text>
+      </ion-col> -->
+    </ion-row>
+    <ion-row *ngIf="currentData.endDate" style="margin: 15px 0px;">
+      <ion-col class="col_center_align">
+        <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
+        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">To Date</span> {{currentData.endDate | date:'d MMMM y  h:mm a'}}</ion-text>
       </ion-col>
+      <!-- <ion-col style="display: flex; flex-direction: row; justify-content: start;" class="col_center_align">
+        <ion-text style="padding-left: 5px;">{{selectedTimeSpan}}</ion-text>
+      </ion-col> -->
     </ion-row>
 
     <ion-row>

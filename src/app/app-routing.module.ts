@@ -44,7 +44,12 @@ const routes: Routes = [
   {
     path: 'invites/:id',
     loadChildren: () => import('./activity-request-overview/activity-request-overview.module').then( m => m.ActivityRequestOverviewPageModule)
-  }
+  },
+  // {
+  //   path: 'common-popup',
+  //   loadChildren: () => import('./common-popup/common-popup.module').then( m => m.CommonPopupPageModule)
+  // }
+
 
 
 ];

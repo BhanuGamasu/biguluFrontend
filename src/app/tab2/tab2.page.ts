@@ -21,7 +21,7 @@ export class Tab2Page {
   town: any;
   dateNew: any;
   selectedTimeSpan: any;
-  currentData:any  = {date: 'Today', startDate: '', endDate: '', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
+  currentData:any  = {date: 'Today', startDate: '', endDate: '', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
   startDate: Date;
   endDate: Date;
   // currentData:any  = {date: 'Today', time: 'Anytime', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
@@ -31,6 +31,10 @@ export class Tab2Page {
   search: any;
   autocompleteService: any;
   predictions: any;
+  openModal: boolean;
+  openStartDate: boolean;
+  openEndDate: boolean;
+  selectedPrediction: any;
   constructor(
     private route: Router, 
     public loadingCtrl: LoadingController, 
@@ -40,7 +44,11 @@ export class Tab2Page {
     ) {
       this.autocompleteService = new google.maps.places.AutocompleteService();
     }
-
+    ionViewWillEnter() {
+      this.search = '';
+      this.selectedPrediction = ''
+      this.currentData = {date: 'Today', startDate: '', endDate: '', gender:'Anyone', age: 'Anyone', count: '', category: '', location: 'Miyapur Hyderabad'};
+    }
   ngOninit(){
     // let data = this.authService.getLocation();
     // console.log(data, 'data');
@@ -131,17 +139,19 @@ export class Tab2Page {
 
   onPredictionSelect(prediction: any) {
     console.log('Selected prediction:', prediction);
-  
+    this.selectedPrediction = prediction;
+    this.currentData.location = this.selectedPrediction;
+    this.search = prediction.description
     const placeService = new google.maps.places.PlacesService(document.createElement('div'));
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        this.currentData.location = prediction.structured_formatting.main_text
-        console.log('Latitude:', placeResult.geometry.location.lat());
-        console.log('Longitude:', placeResult.geometry.location.lng());
-        this.currentData.latitude = placeResult.geometry.location.lat();
-        this.currentData.longitude = placeResult.geometry.location.lng();
-        this.currentData.placeId = prediction.place_id;
-        console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
+        // this.currentData.location = prediction.structured_formatting.main_text
+        // console.log('Latitude:', placeResult.geometry.location.lat());
+        // console.log('Longitude:', placeResult.geometry.location.lng());
+        // this.currentData.latitude = placeResult.geometry.location.lat();
+        // this.currentData.longitude = placeResult.geometry.location.lng();
+        // this.currentData.placeId = prediction.place_id;
+        // console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
       }
     });
     this.predictions = []
@@ -154,77 +164,88 @@ export class Tab2Page {
     }
     this.currentData[key] = value;
   }
-  async openCalendar() {
-    const presentDate = new Date();
-    const formattedPresentDate = presentDate.toISOString().split('T')[0];
-  
-    const alert = await this.alertController.create({
-      header: 'Select Date and Time',
-      inputs: [
-        {
-          name: 'date',
-          type: 'date',
-          min: formattedPresentDate,
-        },
-        {
-          name: 'startTime',
-          type: 'time',
-          placeholder: 'Start Time',
-          min: '03:00'
-        },
-        {
-          name: 'endTime',
-          type: 'time',
-          placeholder: 'End Time',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Ok',
-          handler: data => {
-            const selectedDate = new Date(data.date);
-            const startTime = data.startTime;
-            const endTime = data.endTime;
-            console.log(data, 878);
-            this.startDate = selectedDate;
-            this.startDate.setHours(data.startTime?.slice(0,2));
-            this.startDate.setMinutes(data.startTime?.slice(3));
-            // this.startDate.setSeconds(0);
-            this.endDate = selectedDate
+  onWillDismiss(e: Event) {
 
-            this.endDate.setHours(data.endTime?.slice(0,2));
-            this.endDate.setMinutes(data.endTime?.slice(3));
-            console.log(selectedDate, this.startDate, this.endDate, 6876);
-            
-            this.currentData.startDate = this.startDate;
-            this.currentData.endDate = this.endDate
-            const startDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), startTime.split(':')[0], startTime.split(':')[1]);
-            const endDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), endTime.split(':')[0], endTime.split(':')[1]);
-            
-            const formattedDate = startDateTime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            const formattedStartTime = startDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-            const formattedEndTime = endDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-            
-            const formattedTimeSpan = `${formattedStartTime} - ${formattedEndTime}`;
-            this.selectedTimeSpan = formattedTimeSpan;
-            const formattedDateTimeSpan = `${formattedDate} ${formattedTimeSpan}`;
-        
-            // this.dateNew = selectedDate;
-            // console.log(this.dateNew, selectedDate, formattedTimeSpan, 'dqdq');
-            // selectedDate.setHours()
-            // this.startDate = selectedDate
-            this.currentData.date = selectedDate;
-            this.currentData.timeSpan = formattedTimeSpan;
-          },
-        },
-      ],
-    });
+  }
+  changeDate(e: any, key: string) {
+    console.log(e.target.value, 76276);
+    this.currentData[key] = e.target.value
+  }
+  dismiss(key: string) {
+    this[key] = false;
+  }
+  async openCalendar(key: string) {
+    this[key] = true;
+    // const presentDate = new Date();
+    // const formattedPresentDate = presentDate.toISOString().split('T')[0];
   
-    await alert.present();
+    // const alert = await this.alertController.create({
+    //   header: 'Select Date and Time',
+    //   inputs: [
+    //     {
+    //       name: 'date',
+    //       type: 'date',
+    //       min: formattedPresentDate,
+    //     },
+    //     {
+    //       name: 'startTime',
+    //       type: 'time',
+    //       placeholder: 'Start Time',
+    //       min: '03:00'
+    //     },
+    //     {
+    //       name: 'endTime',
+    //       type: 'time',
+    //       placeholder: 'End Time',
+    //     },
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: 'Cancel',
+    //       role: 'cancel',
+    //     },
+    //     {
+    //       text: 'Ok',
+    //       handler: data => {
+    //         const selectedDate = new Date(data.date);
+    //         const startTime = data.startTime;
+    //         const endTime = data.endTime;
+    //         console.log(data, 878);
+    //         this.startDate = selectedDate;
+    //         this.startDate.setHours(data.startTime?.slice(0,2));
+    //         this.startDate.setMinutes(data.startTime?.slice(3));
+    //         // this.startDate.setSeconds(0);
+    //         this.endDate = selectedDate
+
+    //         this.endDate.setHours(data.endTime?.slice(0,2));
+    //         this.endDate.setMinutes(data.endTime?.slice(3));
+    //         console.log(selectedDate, this.startDate, this.endDate, 6876);
+            
+    //         this.currentData.startDate = this.startDate;
+    //         this.currentData.endDate = this.endDate
+    //         const startDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), startTime.split(':')[0], startTime.split(':')[1]);
+    //         const endDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), endTime.split(':')[0], endTime.split(':')[1]);
+            
+    //         const formattedDate = startDateTime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    //         const formattedStartTime = startDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    //         const formattedEndTime = endDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            
+    //         const formattedTimeSpan = `${formattedStartTime} - ${formattedEndTime}`;
+    //         this.selectedTimeSpan = formattedTimeSpan;
+    //         const formattedDateTimeSpan = `${formattedDate} ${formattedTimeSpan}`;
+        
+    //         // this.dateNew = selectedDate;
+    //         // console.log(this.dateNew, selectedDate, formattedTimeSpan, 'dqdq');
+    //         // selectedDate.setHours()
+    //         // this.startDate = selectedDate
+    //         this.currentData.date = selectedDate;
+    //         this.currentData.timeSpan = formattedTimeSpan;
+    //       },
+    //     },
+    //   ],
+    // });
+  
+    // await alert.present();
   }
 
   compareWith(o1:any, o2:any) {
@@ -236,7 +257,8 @@ export class Tab2Page {
     this.currentData.activityType = this.currentSport.sport
   }
 
-  onSportSelected(event: any) {
+  onSportSelected(event: any, key: string) {
+    this.currentData[key] = event.target.value;
     console.log(event.target.value);
   }
   
