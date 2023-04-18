@@ -33,4 +33,8 @@ export class ActivityRequestOverviewPage implements OnInit {
     // this.route.navigateByUrl('/activity-overview/' + this.id)
   }
 
+  navigate() {
+    this.route.navigateByUrl('profile-overview/' + this.inviteData?.activityInfo[0]?.visitorId + '/' + this.id)
+  }
+
 }

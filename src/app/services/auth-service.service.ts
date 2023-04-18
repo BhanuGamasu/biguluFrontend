@@ -54,6 +54,14 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "auth/invites", data)
   }
 
+  updateAcceptInfo(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/updateAcceptInfo", data)
+  }
+
+  acceptInfo(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/acceptInfo", data)
+  }
+
   createActivity(data: any): Observable<any> {
     // let user: any = localStorage.getItem('user');
     // user = JSON.parse(user);
