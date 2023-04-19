@@ -1,9 +1,11 @@
 <ion-content>
   <div style="margin: 20px;">
     <ion-row>
-      <ion-col size="9">
-        <ion-button>Accept</ion-button>
-        <ion-button>Cancel</ion-button>
+      <ion-col size="9" *ngIf="showBtn">
+        <ion-button *ngIf="!(acceptInfo.accepted || acceptInfo.cancelled)" (click)="accept(true)">Accept</ion-button>
+        <ion-button *ngIf="!(acceptInfo.accepted || acceptInfo.cancelled)" (click)="accept(false)">Cancel</ion-button>
+        <ion-button *ngIf="acceptInfo.accepted">Accepted</ion-button>
+        <ion-button *ngIf="acceptInfo.cancelled" (click)="accept(false)">Invite Cancelled</ion-button>
       </ion-col>
       <ion-col size="3" class="flex_end_align">
         <ion-icon (click)="back()" name="close-circle-outline" class="svg_size"></ion-icon>

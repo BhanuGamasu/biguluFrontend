@@ -42,12 +42,22 @@ const routes: Routes = [
     loadChildren: () => import('./profile-overview/profile-overview.module').then( m => m.ProfileOverviewPageModule)
   },
   {
+    path: 'profile-overview/:id/:id',
+    loadChildren: () => import('./profile-overview/profile-overview.module').then( m => m.ProfileOverviewPageModule)
+  },
+  {
     path: 'invites/:id',
     loadChildren: () => import('./activity-request-overview/activity-request-overview.module').then( m => m.ActivityRequestOverviewPageModule)
-  },  {
+  },
+  {
     path: 'subscription',
     loadChildren: () => import('./subscription/subscription.module').then( m => m.SubscriptionPageModule)
   }
+  // {
+  //   path: 'common-popup',
+  //   loadChildren: () => import('./common-popup/common-popup.module').then( m => m.CommonPopupPageModule)
+  // }
+
 
 
 

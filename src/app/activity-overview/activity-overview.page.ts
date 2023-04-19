@@ -39,7 +39,7 @@ export class ActivityOverviewPage implements OnInit {
 
   updateData(key: any, value: any) {
     console.log(key, value);
-    if (this.activityData?.isVisitor) {
+    if (this.activityData?.isVisitor || key == 'favorite') {
       this.auth.updateVisData({key, value, activityId: this.id}).subscribe(val => {
         console.log(val);
         this.activityData = val.data[0];

@@ -10,6 +10,7 @@ import { AuthServiceService } from '../services/auth-service.service';
 })
 export class ActivityRequestOverviewPage implements OnInit {
   id: string;
+  inviteData: any;
 
   constructor(private route: Router, private auth: AuthServiceService, private location: Location) { }
 
@@ -18,11 +19,22 @@ export class ActivityRequestOverviewPage implements OnInit {
 
   ionViewWillEnter() {
     this.id = this.route.url.split('/')[2];
+    this.auth.getInvitesData({activityId: this.id}).subscribe(val => {
+      if (val.success) {
+        this.inviteData = val.data[0]
+      }
+    }, err => {
+
+    })
   }
 
   goBack() {
     this.location.back()
     // this.route.navigateByUrl('/activity-overview/' + this.id)
+  }
+
+  navigate() {
+    this.route.navigateByUrl('profile-overview/' + this.inviteData?.activityInfo[0]?.visitorId + '/' + this.id)
   }
 
 }
