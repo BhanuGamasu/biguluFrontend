@@ -64,4 +64,8 @@ export class AppComponent {
       this.router.navigateByUrl('/login')
     })
   }
+
+  subscription(){
+    this.router.navigateByUrl('/subscription')
+  }
 }

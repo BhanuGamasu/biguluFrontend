@@ -44,7 +44,11 @@ const routes: Routes = [
   {
     path: 'invites/:id',
     loadChildren: () => import('./activity-request-overview/activity-request-overview.module').then( m => m.ActivityRequestOverviewPageModule)
+  },  {
+    path: 'subscription',
+    loadChildren: () => import('./subscription/subscription.module').then( m => m.SubscriptionPageModule)
   }
+
 
 
 ];
