@@ -5,3 +5,13 @@ ion-label {
 img {
     border-radius: 50%;
 }
+
+.col_flex {
+    flex-direction: column !important;
+}
+
+.round {
+    max-width: 160px !important;
+    height: 163px !important;  
+    margin: 20px 0px !important;
+}

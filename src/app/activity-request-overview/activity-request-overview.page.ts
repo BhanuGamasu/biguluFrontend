@@ -22,6 +22,8 @@ export class ActivityRequestOverviewPage implements OnInit {
     this.auth.getInvitesData({activityId: this.id}).subscribe(val => {
       if (val.success) {
         this.inviteData = val.data[0]
+        console.log(this.inviteData,"bhhh");
+        
       }
     }, err => {
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { isPlatform } from '@ionic/angular';
+import { MenuController, isPlatform } from '@ionic/angular';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class AppComponent {
       age: 26,
       role: 'junior Analyst'
     }];
-  constructor( private router: Router, private auth: AuthServiceService) {
+  constructor( private router: Router, private auth: AuthServiceService, private menuCtrl: MenuController) {
     if (!this.auth.checkToken()){
       this.auth.logout()
     }
@@ -63,9 +63,11 @@ export class AppComponent {
       this.auth.logout();
       this.router.navigateByUrl('/login')
     })
+    this.menuCtrl.close('main-menu');
   }
 
   subscription(){
-    this.router.navigateByUrl('/subscription')
+    this.router.navigateByUrl('/subscription');
+    this.menuCtrl.close('main-menu');
   }
 }

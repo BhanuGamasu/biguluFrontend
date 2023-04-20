@@ -62,3 +62,7 @@ ion-textarea.custom-textarea {
   ::ng-deep .searchbar-clear-icon {
     margin-right: -18px !important;
   }
+
+  ::ng-deep .datetime-size-fixed:not(.datetime-prefer-wheel) {
+    max-width: none !important;
+  }

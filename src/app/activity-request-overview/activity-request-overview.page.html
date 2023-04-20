@@ -30,39 +30,35 @@
       </ion-col>
     </ion-row>
   </div>
-  <ion-card class="card_style">
+  <ion-card class="card_style" *ngFor="let item of inviteData?.activityInfo">
     <ion-row style="padding-bottom: 7px;">
-      <!-- <ion-label class="col_center_align">
-        <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label> -->
-      <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">Recieved on {{inviteData?.activityInfo[0]?.inviteSendDate | date: 'd MMMM EEEE h:mma'}}</ion-text>
+      <ion-col style="padding-left: 10px;" size="9">
+        <ion-text class="sub_heading">Recieved on {{item?.inviteSendDate | date: 'd MMMM EEEE h:mma'}}</ion-text>
       </ion-col>
-      <ion-col style="display: flex; justify-content: end;">
-        <ion-text>{{inviteData?.activityInfo[0]?.accepted}}</ion-text>
+      <ion-col style="display: flex; justify-content: end;" size="3">
+        <ion-text>accepted</ion-text>
       </ion-col>
     </ion-row>
-    <ion-row style="padding-bottom: 7px;">
-      <ion-label class="col_center_align">
-        <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
+
+    <ion-row style="border-bottom: none !important; width: 100%;">
+      <div class="round round_new center_align"><img style="border-radius: 50%;" *ngIf="item?.userInfo[0]?.imageUrl" [src]="item?.userInfo[0]?.imageUrl" alt="user"/></div>
+    <ion-col class=" center_align col_flex" style="padding-left: 20px;">
+      <ion-label>{{item?.userInfo[0]?.name}}</ion-label>
+      <ion-label>{{item?.userInfo[0]?.city}}</ion-label>
+      <ion-label>
+        <ion-row>
+          <ion-label class="col_center_align">
+            <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
+          </ion-label>
+          <ion-col>
+            <ion-text class="sub_heading">{{item?.userInfo[0]?.gender}}</ion-text>
+            <ion-text class="sub_heading" style="padding-left: 10px;">{{item?.userInfo[0]?.age}}</ion-text>
+          </ion-col>
+          <ion-icon name="arrow-forward-circle-outline" (click)="navigate()" style="height: 35px; width: 35px; position: absolute; right: 0;"></ion-icon>
+        </ion-row>
       </ion-label>
-      <ion-col style="padding-left: 10px;">
-        <ion-text class="sub_heading">hloo</ion-text>
-      </ion-col>
-      <ion-col style="display: flex; justify-content: end;">
-        <ion-text>waiting for approvel</ion-text>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-label class="col_center_align">
-        <ion-icon name="time-outline" style="height: 20px; width: 20px;"></ion-icon>
-      </ion-label>
-      <ion-col style="padding-left: 10px;" class="col_center_align">
-        <ion-text class="sub_heading">hii</ion-text>
-      </ion-col>
-      <ion-col style="display: flex; justify-content: end;">
-        <ion-icon name="arrow-forward-circle-outline" (click)="navigate()" style="height: 35px; width: 35px;"></ion-icon>
-      </ion-col>
-    </ion-row>
+    </ion-col>
+  </ion-row>
+
   </ion-card>
 </ion-content>

@@ -61,8 +61,15 @@
     </ion-row>
     <ion-modal (willDismiss)="dismiss('openModal')" [isOpen]="openModal" id="example-modal" #modal>
       <ng-template>
-      <ion-text (click)="openCalendar('openStartDate')" class="date-time">{{currentData.startDate | date: 'MMM d, y, h:mm a'}}</ion-text>
-      <ion-text (click)="openCalendar('openEndDate')" class="date-time">{{currentData.endDate | date: 'MMM d, y, h:mm a'}}</ion-text>
+        <ion-label class="center_align" style="padding-top: 10px; font-weight: 600;">Select Date and Time</ion-label>
+        <ion-item>
+          <ion-label>Start Date</ion-label>
+          <ion-input placeholder="Select a start date" (click)="openCalendar('openStartDate')" class="date-time" type="text" [(ngModel)]="currentData.startDate"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>End Date</ion-label>
+          <ion-input placeholder="Select an end date" (click)="openCalendar('openEndDate')" class="date-time" type="text" [(ngModel)]="currentData.endDate"></ion-input>
+        </ion-item>
     </ng-template>
     </ion-modal>
     <ion-modal (willDismiss)="dismiss('openStartDate')" (ionChange)="changeDate($event, 'startDate')" id="example-modal" #modal [isOpen]="openStartDate">
