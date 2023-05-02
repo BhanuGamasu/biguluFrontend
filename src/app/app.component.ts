@@ -70,4 +70,9 @@ export class AppComponent {
     this.router.navigateByUrl('/subscription');
     this.menuCtrl.close('main-menu');
   }
+
+  userDetails(){
+    this.router.navigateByUrl('user-details');
+    this.menuCtrl.close('main-menu');
+  }
 }
