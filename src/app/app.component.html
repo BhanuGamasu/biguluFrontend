@@ -10,7 +10,7 @@
     <ion-content>
       <ion-list>
         <div style="padding: 0px 15px;">
-          <ion-row style="padding-bottom: 15px;">
+          <ion-row style="padding-bottom: 15px;" (click)="userDetails()" >
             <ion-col class="col_center_align">
               <ion-icon class="icon_style" name="person-circle-outline"></ion-icon>
               <ion-label>Profile</ion-label>
@@ -18,11 +18,11 @@
           </ion-row>
 
           <ion-row style="padding-bottom: 55px;">
-            <ion-col class="col_center_align">
-              <ion-icon class="icon_style" name="person-circle-outline"></ion-icon>
-              <ion-label>Profile</ion-label>
-            </ion-col>
             <ion-col class="col_center_align" (click)="subscription()">
+              <ion-icon class="icon_style" name="newspaper-outline"></ion-icon>
+              <ion-label>Subscriptions</ion-label>
+            </ion-col>
+            <ion-col class="col_center_align">
               <ion-label style="padding-right: 5px;">3 clicks left</ion-label>
               <ion-icon name="alert-circle-outline"></ion-icon>
             </ion-col>
