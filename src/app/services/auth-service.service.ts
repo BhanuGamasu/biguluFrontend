@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment'
 // import { Geolocation } from '@ionic-native/geolocation/ngx';
 
@@ -9,6 +9,9 @@ import { environment } from '../../environments/environment'
   providedIn: 'root'
 })
 export class AuthServiceService {
+  searchData: any = {};
+  public searchVal = new Subject();
+  public searchVal$ = this.searchVal.asObservable();
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -30,12 +33,24 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "auth/login", loginData);
   }
 
+  getSearchData() {
+    return this.searchData
+  }
+
+  sendSearchData(data: any) {
+    this.searchVal.next(data);
+  }
+
   checkUser(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "auth/checkUser", data);
   }
 
   getProfile(id: any): Observable<any> {
     return this.http.post(environment.baseUrl + "auth/getProfile", id);
+  }
+
+  getFilterData(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/getFilterData", data);
   }
 
   deleteActivity(id: any): Observable<any> {

@@ -146,8 +146,8 @@ export class Tab2Page {
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         // this.currentData.location = prediction.structured_formatting.main_text
-        // console.log('Latitude:', placeResult.geometry.location.lat());
-        // console.log('Longitude:', placeResult.geometry.location.lng());
+        console.log('Latitude:', placeResult.geometry.location.lat());
+        console.log('Longitude:', placeResult.geometry.location.lng());
         // this.currentData.latitude = placeResult.geometry.location.lat();
         // this.currentData.longitude = placeResult.geometry.location.lng();
         // this.currentData.placeId = prediction.place_id;

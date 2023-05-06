@@ -25,7 +25,7 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Activity</ion-text>
       </ion-label>
-      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event)">
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activity')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -35,7 +35,7 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Category</ion-text>
       </ion-label>
-      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event)">
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'category')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -51,17 +51,23 @@
 
     <ion-row class="bottom_margin">
       <ion-col>
-        <ion-button>Today</ion-button>
-        <ion-button>Tomorrow</ion-button>
-        <ion-button>This weekend</ion-button>
+        <ion-button [ngClass]="currentData.date == 'today'? 'selected': ''" 
+        (click)="onSportSelected('today', 'date')">Today</ion-button>
+        <ion-button [ngClass]="currentData.date == 'tomorrow'? 'selected': ''"
+        (click)="onSportSelected('tomorrow', 'date')">Tomorrow</ion-button>
+        <ion-button [ngClass]="currentData.date == 'week'? 'selected': ''"
+        (click)="onSportSelected('week', 'date')">This weekend</ion-button>
       </ion-col>
     </ion-row>
 
     <ion-row class="bottom_margin">
       <ion-col>
-        <ion-button>Morning</ion-button>
-        <ion-button>Afternoon</ion-button>
-        <ion-button>Evening</ion-button>
+        <ion-button [ngClass]="currentData.time == 'morning'? 'selected': ''"
+        (click)="onSportSelected('morning', 'time')">Morning</ion-button>
+        <ion-button [ngClass]="currentData.time == 'afternoon'? 'selected': ''"
+        (click)="onSportSelected('afternoon', 'time')">Afternoon</ion-button>
+        <ion-button [ngClass]="currentData.time == 'evening'? 'selected': ''"
+        (click)="onSportSelected('evening', 'time')">Evening</ion-button>
       </ion-col>
     </ion-row>
 
@@ -76,9 +82,32 @@
 
     <ion-row class="bottom_margin">
       <ion-col>
-        <ion-button>Anyone</ion-button>
-        <ion-button>Male</ion-button>
-        <ion-button>Female</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'anyone'? 'selected': ''"
+        (click)="onSportSelected('anyone', 'gender')">Anyone</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'male'? 'selected': ''"
+        (click)="onSportSelected('male', 'gender')">male</ion-button>
+        <ion-button [ngClass]="currentData.gender == 'female'? 'selected': ''"
+        (click)="onSportSelected('female', 'gender')">Female</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-label class="col_center_align">
+        <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
+      </ion-label>
+      <ion-col>
+        <ion-text class="sub_heading">Age Preference ?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="currentData.age == 'anyone'? 'selected': ''"
+          (click)="onSportSelected('anyone', 'age')">Anyone</ion-button>
+        <ion-button [ngClass]="currentData.age == '18-24'? 'selected': ''"
+          (click)="onSportSelected('18-24', 'age')">18-24</ion-button>
+        <ion-button [ngClass]="currentData.age == '25-40'? 'selected': ''"
+          (click)="onSportSelected('25-40', 'age')">25-40</ion-button>
       </ion-col>
     </ion-row>
 
@@ -93,14 +122,16 @@
 
     <ion-row class="bottom_margin">
       <ion-col>
-        <ion-button>1-1</ion-button>
-        <ion-button>Group</ion-button>
+        <ion-button [ngClass]="currentData.count == 'single'? 'selected': ''"
+        (click)="onSportSelected('single', 'count')">1-1</ion-button>
+        <ion-button [ngClass]="currentData.count == 'group'? 'selected': ''"
+        (click)="onSportSelected('group', 'count')">Group</ion-button>
       </ion-col>
     </ion-row>
     
     <ion-row>
       <ion-col class="center_align" style="top: 50px;">
-        <ion-button style="width: 150px;">Search</ion-button>
+        <ion-button style="width: 150px;" tab="tab1" (click)="searchSubmit()">Search</ion-button>
       </ion-col>
     </ion-row>
     

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AuthServiceService } from '../services/auth-service.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -10,7 +11,9 @@ import { AuthServiceService } from '../services/auth-service.service';
 })
 export class Tab1Page { 
   activityData: any = [];
-  constructor(private route: Router, private authService: AuthServiceService) {
+  searchObs: any;
+  sData: any = '';
+  constructor(private route: Router, private authService: AuthServiceService, private nav: NavController) {
     this.ionViewWillEnter()
     // setInterval(() => {
     //   this.activityData = localStorage.getItem('activity');
@@ -19,42 +22,44 @@ export class Tab1Page {
     
     // }, 1000)
   }
-  ngOninit(){
-    // this.activityData = localStorage.getItem('activity');
-    // this.activityData = JSON.parse(this.activityData);
-    console.log('hiiiiiiiiiiii');
-    // this.authService.getAllActivities().subscribe(val => {
-    //   if (val.success) {
-    //     // this.activityData = val.data[0]? val.data: [];
-    //   }
-    // })
-    // setInterval(() => {
-    //   this.activityData = localStorage.getItem('activity');
-    // this.activityData = JSON.parse(this.activityData);    
-    // }, 1000)
-    this.ionViewWillEnter()
-  }
-
+  // ngOninit(){
+  //   // this.activityData = localStorage.getItem('activity');
+  //   // this.activityData = JSON.parse(this.activityData);
+  //   console.log('hiiiiiiiiiiii');
+  //   // this.authService.getAllActivities().subscribe(val => {
+  //   //   if (val.success) {
+  //   //     // this.activityData = val.data[0]? val.data: [];
+  //   //   }
+  //   // })
+  //   // setInterval(() => {
+  //   //   this.activityData = localStorage.getItem('activity');
+  //   // this.activityData = JSON.parse(this.activityData);    
+  //   // }, 1000)
+  //   this.ionViewWillEnter()
+  // }
   ionViewWillEnter() {
     console.log('ionViewWillEnter triggered');
-    
-    this.authService.getAllActivities().subscribe(val => {
-      if (val.success) {
-        this.activityData = val.data || [];
-      }
-    })
+    this.searchObs?.unsubscribe();
+    this.searchObs = this.authService.searchVal.subscribe(val => {
+      console.log(val, 6474);
+      this.sData = val;
+      this.authService.getFilterData(this.sData).subscribe(res => {
+        console.log(res, 6875);
+        this.sData = ''
+      })
+      
+    });
+    if (this.sData == '') {
+      this.authService.getAllActivities().subscribe(val => {
+        if (val.success) {
+          this.activityData = val.data || [];
+        }
+      })
+    }  
   }
 
-  // async signOut() {
-  //   GoogleAuth.signOut().then(res => {
-  //     console.log(res, 'Signed out');
-  //     this.authService.logout();
-  //     this.route.navigateByUrl('/login')
-  //   })
-  // }
-
   search(){
-    this.route.navigateByUrl('search')
+    this.route.navigate(['search'])
   }
 
   activityOverview(id: any){

@@ -9,3 +9,8 @@ ion-button {
 ::ng-deep .select-popover {
     max-height: 300px !important;
   }
+
+.selected {
+    --background: #AA4A44;
+    color: white;
+  }
