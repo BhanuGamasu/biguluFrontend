@@ -162,6 +162,8 @@ export class Tab2Page {
     if (key == 'count' || key == 'description'){
       if (key == 'count') {
         value = parseInt(value.target.value);
+        this.currentData[key] = value;
+        return
       }
       value = value.target.value;
     }

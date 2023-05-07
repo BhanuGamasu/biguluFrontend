@@ -13,6 +13,7 @@ export class Tab1Page {
   activityData: any = [];
   searchObs: any;
   sData: any = '';
+  currentData:any  = {activity: '', date: '', time: '', gender:'', age: '', count: '', category: '', location: ''};
   constructor(private route: Router, private authService: AuthServiceService, private nav: NavController) {
     this.ionViewWillEnter()
     // setInterval(() => {
@@ -38,6 +39,7 @@ export class Tab1Page {
   //   this.ionViewWillEnter()
   // }
   ionViewWillEnter() {
+    this.currentData.date = ''
     console.log('ionViewWillEnter triggered');
     this.searchObs?.unsubscribe();
     this.searchObs = this.authService.searchVal.subscribe(val => {
@@ -46,6 +48,7 @@ export class Tab1Page {
       this.authService.getFilterData(this.sData).subscribe(res => {
         console.log(res, 6875);
         this.sData = ''
+        this.activityData = res.data;
       })
       
     });
@@ -56,6 +59,31 @@ export class Tab1Page {
         }
       })
     }  
+  }
+
+  filterDate(val: any) {
+    if (this.currentData.date == val) {
+      return;
+    }
+    this.currentData.date = val;
+    this.authService.getFilterData(this.currentData).subscribe(res => {
+      console.log(res, 6875);
+      this.sData = ''
+      this.activityData = res.data;
+    })
+  }
+
+  getLastSeen(visData: any) {
+    if (visData?.lastSeen) {
+      let diff = new Date().getDate() - new Date(visData.lastSeen).getDate();
+      if (diff > 0) {
+        return "seen " + diff + " day back";
+      } else {
+        return "seen today";
+      }
+    }else {
+      return "not seen yet"
+    }
   }
 
   search(){

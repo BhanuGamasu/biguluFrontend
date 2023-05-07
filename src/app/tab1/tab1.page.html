@@ -11,9 +11,9 @@
       <ion-col class="center_align" size="4">
         <ion-text style="font-size: 18px;">Bigulu</ion-text>
       </ion-col>
-      <ion-col class="center_align" size="4">
+      <!-- <ion-col class="center_align" size="4">
         <ion-badge color="primary">22k</ion-badge>
-      </ion-col>
+      </ion-col> -->
       <!-- <ion-col class="center_align" size="3">
         <ion-button (click)="signOut()">signOut</ion-button>
       </ion-col> -->
@@ -23,17 +23,17 @@
 
 
 <ion-toolbar>
-  <ion-segment value="today">
-    <ion-segment-button value="today">
+  <ion-segment [value]="currentData.date">
+    <ion-segment-button (click)="filterDate('today')" value="today">
       <ion-label>Today</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="tomorrow">
+    <ion-segment-button (click)="filterDate('tomorrow')" value="tomorrow">
       <ion-label>Tomorrow</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="thisweek">
+    <ion-segment-button (click)="filterDate('week')" value="week">
       <ion-label>This Week</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="thismonth">
+    <ion-segment-button (click)="filterDate('month')" value="month">
       <ion-label>This Month</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -48,15 +48,18 @@
         <ion-text class="sub_heading">{{item.activityType}}</ion-text>
       </ion-col>
       <ion-col size="3">
-        <ion-text>1123 views</ion-text>
+        <ion-text>{{item?.views ? item?.views: 0}} views</ion-text>
       </ion-col>
       <ion-col size="4.5" style="display: flex; justify-content: end;">
-        <ion-text>seen 1 day back</ion-text>
+        <ion-text>{{getLastSeen(item?.visData)}}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row style="padding-bottom: 7px;">
       <ion-col>
         <ion-text>Posted on {{item.dateTime | date: 'd MMMM y h:mma'}}</ion-text>
+      </ion-col>
+      <ion-col style="text-align: right;">
+        <ion-icon *ngIf="item?.visData?.favorite" name="star" style="width: 28px;" class="svg_size"></ion-icon>
       </ion-col>
     </ion-row>
     <ion-row>

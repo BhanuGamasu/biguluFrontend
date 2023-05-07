@@ -12,7 +12,7 @@ declare var google: any;
 export class SearchPage implements OnInit {
 
   currentSport: any;
-  currentData:any  = {activity: '', date: 'today', startDate: '', endDate: '', time: 'morning', gender:'anyone', age: 'anyone', count: 'single', category: '', location: 'Miyapur Hyderabad'};
+  currentData:any  = {activity: '', date: 'today', time: 'morning', gender:'anyone', age: 'anyone', count: 'single', category: '', location: ''};
   sports = ['badminton', 'cricket', 'ring', 'basketball', 'handball', 'hockey', 'golf', 'casual meetup', 'drinks'];
   predictions: any;
   search: any;
@@ -50,7 +50,8 @@ export class SearchPage implements OnInit {
   onPredictionSelect(prediction: any) {
     console.log('Selected prediction:', prediction);
     this.selectedPrediction = prediction;
-    this.search = prediction.description
+    this.search = prediction.description;
+    this.currentData.location = prediction?.structured_formatting?.main_text;
     const placeService = new google.maps.places.PlacesService(document.createElement('div'));
     console.log(placeService, 101010);
     
@@ -92,8 +93,18 @@ export class SearchPage implements OnInit {
   }
 
   searchSubmit() {
-    this.auth.sendSearchData(this.currentData);
-    this.nav.navigateBack(['tabs/tab1']);
+    let keys = ['category', 'activity', 'location'];
+    let formValid = true;
+    keys.forEach(each => {
+      if (this.currentData[each] == '') {
+        formValid = false;
+        return
+      }
+    })
+    if (formValid) {
+      this.auth.sendSearchData(this.currentData);
+      this.nav.navigateBack(['tabs/tab1']);
+    }
   }
 
 }
