@@ -5,6 +5,9 @@
       <ion-col>
         <ion-text class="heading">Create activity !</ion-text>
       </ion-col>
+      <ion-col style="text-align: right;">
+        <ion-icon class="svg_size" name="close-circle-outline" (click)="back()"></ion-icon>
+      </ion-col>
     </ion-row>
 
     <div style="position: relative;">
@@ -30,8 +33,12 @@
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
-
-    <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin-right: 40px; margin-top: 20px;" lines="none">
+    <ion-row style="margin-top: 15px;" *ngIf="currentData?.activityName != ''">
+      <ion-col>
+        <ion-text><img [alt]="currentData?.activityName" [src]="'../../assets/'+currentData?.activityName+'.png'" style="height: 20px; width: 32px; padding-right: 10px;"/>{{sportDesc[currentData?.activityName]}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin-right: 40px; margin-top: 20px;" lines="none">
       <ion-label>
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Category</ion-text>
@@ -39,7 +46,7 @@
       <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activityType')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
     <ion-row style="margin-top: 15px;">
       <ion-label class="col_center_align">
@@ -85,7 +92,7 @@
     <ion-row *ngIf="currentData.startDate" style="margin: 15px 0px;">
       <ion-col class="col_center_align">
         <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
-        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">From Date</span> {{currentData.startDate | date:'d MMMM y  h:mm a'}}</ion-text>
+        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">Start Time</span> {{currentData.startDate | date:'d MMMM EEE h:mm a'}}</ion-text>
       </ion-col>
       <!-- <ion-col style="display: flex; flex-direction: row; justify-content: start;" class="col_center_align">
         <ion-text style="padding-left: 5px;">{{selectedTimeSpan}}</ion-text>
@@ -94,7 +101,7 @@
     <ion-row *ngIf="currentData.endDate" style="margin: 15px 0px;">
       <ion-col class="col_center_align">
         <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
-        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">To Date</span> {{currentData.endDate | date:'d MMMM y  h:mm a'}}</ion-text>
+        <ion-text style="padding-left: 5px;"><span style="font-weight: bold;">End Time</span> {{currentData.endDate | date:'d MMMM EEE h:mm a'}}</ion-text>
       </ion-col>
       <!-- <ion-col style="display: flex; flex-direction: row; justify-content: start;" class="col_center_align">
         <ion-text style="padding-left: 5px;">{{selectedTimeSpan}}</ion-text>
@@ -152,7 +159,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-input type="number" (change)="onClick('count', $event)" [(ngModel)]="inputValue"
+        <ion-input type="number" (change)="onClick('count', $event)" [value]="currentData?.count"
           class="custom input_custom_playerCount"></ion-input>
       </ion-col>
     </ion-row>

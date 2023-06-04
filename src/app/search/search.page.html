@@ -4,6 +4,9 @@
       <ion-col>
         <ion-text class="heading">Search !</ion-text>
       </ion-col>
+      <ion-col style="text-align: right;">
+        <ion-icon class="svg_size" name="close-circle-outline" (click)="back()"></ion-icon>
+      </ion-col>
     </ion-row>
 
     <div style="position: relative;">
@@ -25,12 +28,17 @@
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Activity</ion-text>
       </ion-label>
-      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activity')">
+      <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'activityName')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-row style="margin-top: 15px;" *ngIf="currentData?.activityName != ''">
+      <ion-col>
+        <ion-text><img [alt]="currentData?.activityName" [src]="'../../assets/'+currentData?.activityName+'.png'" style="height: 20px; width: 32px; padding-right: 10px;"/>{{sportDesc[currentData?.activityName]}}</ion-text>
+      </ion-col>
+    </ion-row>
 
-    <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin-right: 40px; margin-top: 20px;" lines="none">
+    <!-- <ion-item style="height: 50px; border: 1px solid; border-radius: 14px; margin-right: 40px; margin-top: 20px;" lines="none">
       <ion-label>
         <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
         <ion-text>Select Category</ion-text>
@@ -38,7 +46,7 @@
       <ion-select interface="popover" class ="select-popover" (ionChange)="onSportSelected($event, 'category')">
         <ion-select-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
     <ion-row style="margin-top: 20px;">
       <ion-label class="col_center_align">

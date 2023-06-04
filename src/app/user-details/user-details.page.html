@@ -1,8 +1,26 @@
 <ion-content>
+  <ion-row style="text-align: right;">
+    <ion-col style="text-align: right;">
+      <ion-icon class="svg_size" name="close-circle-outline" (click)="back()"></ion-icon>
+    </ion-col>
+  </ion-row>
   <ion-row *ngIf="showTop" style="border-bottom: none !important; width: 100%;">
-    <ion-col class="center_align">
-      <div *ngIf="!userData.imageUrl" class="round"></div>
-      <img [src]="userData.imageUrl" alt="profile"/>
+    <ion-col>
+      <!-- <div *ngIf="!userData.imageUrl" class="round"></div>
+      <img [src]="userData.imageUrl" alt="profile"/> -->
+      <div class="col_center_align" style="flex-direction: column;">
+        <div class="profile-photo-container">
+          <img *ngIf="profilePhoto" [src]="profilePhoto" [ngClass]="{ 'rounded': profilePhoto }">
+          <label class="upload-label" *ngIf="!profilePhoto">
+            <input type="file" accept="image/*" (change)="onFileSelected($event)">
+            Choose Photo
+          </label>
+        </div>
+        <label *ngIf="profilePhoto" class="change-file-label">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+          Change Photo
+        </label>
+      </div>
     </ion-col>
   </ion-row>
   <form [formGroup]="userDataForm">

@@ -54,7 +54,7 @@
             <ion-text class="sub_heading">{{item?.userInfo[0]?.gender}}</ion-text>
             <ion-text class="sub_heading" style="padding-left: 10px;">{{item?.userInfo[0]?.age}}</ion-text>
           </ion-col>
-          <ion-icon name="arrow-forward-circle-outline" (click)="navigate()" style="height: 35px; width: 35px; position: absolute; right: 0;"></ion-icon>
+          <ion-icon name="arrow-forward-circle-outline" (click)="navigate(item?.visitorId)" style="height: 35px; width: 35px; position: absolute; right: 0;"></ion-icon>
         </ion-row>
       </ion-label>
     </ion-col>

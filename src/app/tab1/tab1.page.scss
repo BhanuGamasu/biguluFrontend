@@ -1,10 +1,11 @@
-.top-container{
+.top-container {
     padding: 10px;
-    overflow:scroll;
+    overflow: scroll;
     background: #ededed;
     overflow: hidden;
     border-radius: 14px;
-    box-shadow: none;
+    box-shadow: 0 0 5px #ededed;
+    border: 1px solid #ededed;
     margin: 20px;
 }
 

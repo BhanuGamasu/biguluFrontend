@@ -12,12 +12,58 @@ declare var google: any;
 export class SearchPage implements OnInit {
 
   currentSport: any;
-  currentData:any  = {activity: '', date: 'today', time: 'morning', gender:'anyone', age: 'anyone', count: 'single', category: '', location: ''};
-  sports = ['badminton', 'cricket', 'ring', 'basketball', 'handball', 'hockey', 'golf', 'casual meetup', 'drinks'];
+  currentData:any  = {date: 'today', time: 'morning', gender:'anyone', activityName: '', age: 'anyone', count: 'single', location: ''};
+  // sports = ['badminton', 'cricket', 'ring', 'basketball', 'handball', 'hockey', 'golf', 'casual meetup', 'drinks'];
   predictions: any;
   search: any;
   autocompleteService: any;
   selectedPrediction: any;
+  sports = [
+    'Entertainment tickets', 
+    'Dining out', 
+    'Drink Buddy', 
+    'Clubbing', 
+    'Beach Party', 
+    'Shopping', 
+    'Food Tour', 
+    'Book Club', 
+    'Music Jam', 
+    'Gaming Session', 
+    'Backpacking', 
+    'Travel', 
+    'Road Trip', 
+    'Adventure Tourism', 
+    'Sightseeing', 
+    'Cultural Festival', 
+    'Outdoor Games', 
+    'Outdoor Adventure', 
+    'Volunteering', 
+    'Film and Movie Nights', 
+    'Coding or Hackathons'
+  ];
+  sportDesc = {
+    'Entertainment tickets': 'Invite Bigulus If you had extra tickets for a movie , music concert or game',
+    'Dining out': 'Indulge in delicious food, try different cuisines, and socialize', 
+    'Drink Buddy': 'Drink Buddy', 
+    'Clubbing': "Let/'s Hit the Club! for a Night of Fun and Dancing", 
+    'Beach Party': "Beach Party", 
+    'Shopping': "Join flea markets", 
+    'Food Tour': "Explore local cuisine by joining food tours that allow you to taste traditional dishes and specialties.", 
+    'Book Club': "Join book clubs to discuss literature, share book recommendations, and engage in intellectual conversations with fellow avid readers.", 
+    'Music Jam': "Gather with fellow musicians to jam, collaborate, and share a passion for playing instruments or singing.", 
+    'Gaming Session': "Engage in multiplayer gaming sessions with like-minded gamers, either online or in-person, fostering a sense of camaraderie and competition.", 
+    'Backpacking': "Backpacking", 
+    'Travel': 'Travel', 
+    'Road Trip': "Take a road trip to explore scenic routes, picturesque landscapes, and hidden gems.", 
+    'Adventure Tourism': "Engage in thrilling activities like bungee jumping, paragliding, hiking, or white-water rafting in scenic destinations.", 
+    'Sightseeing': " Visit famous landmarks, historical sites, and iconic attractions in different cities and countries.", 
+    'Cultural Festival': "Attend festivals and celebrations to immerse yourself in local traditions, music, dance, and cuisine.", 
+    'Outdoor Games': "Looking for an extra player or a team? Post here.", 
+    'Outdoor Adventure': "Form or join groups for outdoor activities like hiking, rock climbing, kayaking, or camping, connecting with nature enthusiasts.", 
+    'Volunteering': "Engage in volunteer work or community service projects, connecting with individuals who share a passion for making a positive impact on society.", 
+    'Film and Movie Nights': "Organize or join film clubs to watch and discuss movies, exploring different genres and engaging in cinematic conversations.", 
+    'Coding or Hackathons': " Participate in coding workshops, hackathons, or programming groups where individuals collaborate on coding projects and share knowledge."
+  }
 
   constructor(
     public loadingCtrl: LoadingController, 
@@ -82,8 +128,12 @@ export class SearchPage implements OnInit {
     this.currentSport = ev.target.value;
   }
 
+  back() {
+    this.route.navigate(['tabs'])
+  }
+
   onSportSelected(event: any, key: string) {
-    if (key == 'activity' || key == 'category') {
+    if (key == 'activityName' || key == 'category') {
       console.log(event.target.value);
       this.currentData[key] = event.target.value;
     } else {
@@ -93,7 +143,7 @@ export class SearchPage implements OnInit {
   }
 
   searchSubmit() {
-    let keys = ['category', 'activity', 'location'];
+    let keys = ['activityName', 'location'];
     let formValid = true;
     keys.forEach(each => {
       if (this.currentData[each] == '') {
@@ -101,6 +151,8 @@ export class SearchPage implements OnInit {
         return
       }
     })
+    console.log(formValid, this.currentData, 4567898765);
+    
     if (formValid) {
       this.auth.sendSearchData(this.currentData);
       this.nav.navigateBack(['tabs/tab1']);

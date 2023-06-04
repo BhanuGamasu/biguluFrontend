@@ -1,11 +1,50 @@
 <ion-content>
-  <div class="card-top">
-    <ion-label class="header">BIGULU</ion-label>
+  <div style="background-color: #f3f3f3;">
+    <div class="card-top">
+    </div>
+    <ion-card class="card-bottom">
+      <div style="position: fixed; bottom: 0; right: 0;">
+        <ion-row>
+          <ion-col size="5"></ion-col>
+          <ion-col size="7" class="col_center_align" style="opacity: 0.4;">
+            <ion-label class="col_center_align" style="padding-right: 10px;">
+              <img style="width: 33px !important" src="../../assets/copyright.png" alt="">
+            </ion-label>
+              <ion-text style="font-size: 12px;">2023 Vdream Innovations (OPC) Pvt Ltd. All Rights Reserved.</ion-text>
+          </ion-col>
+        </ion-row>
+      </div>
+      
+      <ion-button (click)="signIn()" style="font-size: 14px; margin-top: 10px;">
+        <ion-icon style="margin-right: 10px;" name="logo-google"></ion-icon>
+        Sign in with google
+      </ion-button>
+      <div>
+        <ion-row>
+          <ion-col class="col_center_align">
+            <ion-label style="padding-right: 10px;">
+              <img src="../../assets/people.png" alt="">
+            </ion-label>
+            <ion-text>Find Your Tribe.</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="col_center_align">
+            <ion-label style="padding-right: 10px;">
+              <img src="../../assets/free.png" alt="">
+            </ion-label>
+            <ion-text>Unlock 3 Activities For Free.</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="col_center_align">
+            <ion-label style="padding-right: 10px;">
+              <img src="../../assets/likeMinded.png" alt="">
+            </ion-label>
+            <ion-text>Discover Like-Minded Activities.</ion-text>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
   </div>
-  <ion-card class="card-bottom">
-        <ion-button (click)="signIn()" style="font-size: 16px;">
-          <ion-icon style="margin-right: 10px;" name="logo-google"></ion-icon>
-          Sign in with google
-        </ion-button>
-  </ion-card>
 </ion-content>

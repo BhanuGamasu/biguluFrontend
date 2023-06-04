@@ -44,8 +44,8 @@
   <ion-card class="top-container" *ngFor="let item of activityData">
     <ion-row style="padding-bottom: 7px;">
       <ion-col size="4.5" style="padding-left: 10px;" class="col_center_align">
-        <ion-icon name="people-outline" style="height: 20px; width: 20px; padding-right: 10px;"></ion-icon>
-        <ion-text class="sub_heading">{{item.activityType}}</ion-text>
+        <img [alt]="item?.activityName" [src]="'../../assets/'+item?.activityName+'.png'" style="height: 20px; width: 32px; padding-right: 10px;"/>
+        <ion-text class="sub_heading">{{item.activityName}}</ion-text>
       </ion-col>
       <ion-col size="3">
         <ion-text>{{item?.views ? item?.views: 0}} views</ion-text>
@@ -55,22 +55,28 @@
       </ion-col>
     </ion-row>
     <ion-row style="padding-bottom: 7px;">
-      <ion-col>
+      <ion-col size="10">
         <ion-text>Posted on {{item.dateTime | date: 'd MMMM y h:mma'}}</ion-text>
       </ion-col>
-      <ion-col style="text-align: right;">
-        <ion-icon *ngIf="item?.visData?.favorite" name="star" style="width: 28px;" class="svg_size"></ion-icon>
+      <ion-col style="display: flex; justify-content: end;" size="2">
+        <ion-icon *ngIf="item?.visData?.favorite" name="star" style="width: 18px; height: 18px !important;" class="svg_size"></ion-icon>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="!(item?.description=='')">
       <ion-col>
-        <ion-text>Join friendly match at {{item?.location?.structured_formatting?.main_text}}, just for funn........</ion-text>
+        <ion-text>{{item?.description}}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="col_center_align">
         <ion-icon style="height: 20px; width: 20px; padding-right: 10px;" name="calendar-outline"></ion-icon>
-        <ion-text>{{item.startDate | date: 'd MMMM EEEE h:mma'}}<br>{{item.endDate | date: 'd MMMM EEEE h:mma'}}</ion-text>
+        <ion-text><span style="font-weight: 600;">Start Time</span> {{item.startDate | date:'d MMMM EEE h:mm a'}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col_center_align" *ngIf="item?.endDate != ''">
+        <ion-icon style="height: 20px; width: 20px; padding-right: 10px;" name="calendar-outline"></ion-icon>
+        <ion-text><span style="font-weight: 600;">End Time</span> {{item.endDate | date:'d MMMM EEE h:mm a'}}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row>

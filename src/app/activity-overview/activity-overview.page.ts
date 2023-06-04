@@ -65,6 +65,19 @@ export class ActivityOverviewPage implements OnInit {
     // this.route.navigateByUrl('/tabs/tab1')
   }
 
+  getLastSeen(visData: any) {
+    if (visData?.lastSeen) {
+      let diff = new Date().getDate() - new Date(visData.lastSeen).getDate();
+      if (diff > 0) {
+        return "seen " + diff + " day back";
+      } else {
+        return "seen today";
+      }
+    }else {
+      return "not seen yet"
+    }
+  }
+
   getProfileOverview(){
     this.route.navigateByUrl('profile-overview/' + this.activityData?.activityCreatedBy?._id)
   }
