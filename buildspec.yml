@@ -1,16 +1,19 @@
 version: 0.2
+
 phases:
-    install:
-        commands:
-            - echo Installing source NPM dependencies...
-            - npm install
-            - npm install -g @angular/cli
-    build:
-        commands:
-            - echo Build started on `date`
-            - ng build 
+  pre_build:
+    commands:
+      - echo "Installing n (Node version manager)..."
+  build:
+    commands:
+      - echo "Installing Node.js version 16.20.2..."
+      - n 16.20.2
+      - npm install --legacy-peer-deps
+      - npm install -g @angular/cli
+      - ng build
   post_build:
     commands:
       - echo "Build completed"
+
 artifacts:
   files: '**/*'
