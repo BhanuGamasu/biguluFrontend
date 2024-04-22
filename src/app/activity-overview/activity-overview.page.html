@@ -1,37 +1,27 @@
 <ion-content>
   <div style="padding: 15px; height: 100%;">
     <ion-row style="margin-bottom: 10px;">
-      <ion-col size="6" style="padding-bottom: 0px;">
+      <ion-col size="5" style="padding-bottom: 0px;">
         <ion-text class="heading">Activity ID 112</ion-text><br>
         <ion-text class="sub_heading">Published on<br> {{activityData?.dateTime | date:'d MMMM y  h:mm a'}}<br>{{getLastSeen(activityData?.userActions)}}</ion-text>
+      </ion-col>
+      <ion-col size="1.5" *ngIf="!activityData?.userActions?.isVisitor">
+        <div class="center_align" (click)="editActivity()" style="height: 28px; width: 28px; cursor: pointer;">
+          <img src="../../assets/edit-img.png" alt="">
+        </div>
+        <ion-col>
+          <ion-label style="font-size: 12px; font-weight: bold;">Edit</ion-label>
+        </ion-col>
       </ion-col>
       <ion-col style="text-align: center;" size="4">
         <ion-text (click)="invitesView()" *ngIf="!activityData?.isVisitor" class="sub_heading">0{{activityData?.inviteCount || 0}}<br>invites recieved<br>0{{activityData?.accepted || 0}}/0{{activityData?.inviteCount || 0}} Accepted</ion-text>
       </ion-col>
-      <ion-col size="2" style="text-align: end;">
+      <ion-col size="1.5" style="text-align: end;">
         <ion-icon class="svg_size" (click)="closeTab()" name="close-circle-outline"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <!-- <ion-row>
-      <ion-col>
-        <ion-text class="sub_heading">Published on<br> 23 January 23 3:00pm<br> seen 1 day back</ion-text>
-      </ion-col>
-    </ion-row> -->
-
     <ion-row>
-      <!-- <ion-col size="2.5">
-        <ion-icon name="star-outline" class="svg_size"></ion-icon>
-        <ion-label style="font-size: 12px;">Favourate</ion-label>
-      </ion-col>
-      <ion-col size="2.5">
-        <ion-icon name="alert-circle-outline" class="svg_size"></ion-icon>
-        <ion-label style="font-size: 12px;">Report</ion-label>
-      </ion-col>
-      <ion-col size="2.5">
-        <ion-icon name="share-social-outline" class="svg_size"></ion-icon>
-        <ion-label style="font-size: 12px;">Share</ion-label>
-      </ion-col> -->
       <ion-col size="2.5">
         <div class="center_align">
           <ion-icon *ngIf="!activityData?.userActions?.favorite" name="star-outline" (click)="updateData('favorite', true)" class="svg_size"></ion-icon>
@@ -57,11 +47,15 @@
           <ion-label style="font-size: 12px;">Share</ion-label>
         </ion-col>
       </ion-col>
-      <ion-col size="4.5" class="col_center_align">
+      <ion-col *ngIf="activityData?.userActions?.isVisitor" size="4.5" class="col_center_align align_end">
         <!-- <ion-button (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button> -->
-        <ion-button class="responsive-button" *ngIf="!(activityData?.userActions?.accepted || activityData?.userActions?.cancelled)" (click)="updateData('joined', !activityData?.userActions?.joined)">{{getSentence()}}</ion-button>
-        <ion-button class="responsive-button" *ngIf="activityData?.userActions?.cancelled">Cancelled</ion-button>
-        <ion-button class="responsive-button" *ngIf="activityData?.userActions?.accepted">Accepted</ion-button>
+        <ion-button class="responsive-button " *ngIf="activityData?.userActions?.joined">invite accepted</ion-button>
+        <ion-button class="responsive-button" *ngIf="(activityData?.userActions?.inviteSent && !activityData?.userActions?.joined && !activityData?.userActions?.cancelledByMaster)" (click)="updateData('cancel', !activityData?.userActions?.inviteSent)">Cancel Invite</ion-button>
+        <ion-button class="responsive-button" *ngIf="!activityData?.userActions?.inviteSent" (click)="updateData('join', !activityData?.userActions?.inviteSent)">Join Now</ion-button>
+        <ion-button class="responsive-button" *ngIf="activityData?.userActions?.cancelledByMaster">Rejected</ion-button>
+      </ion-col>
+      <ion-col *ngIf="!activityData?.userActions?.isVisitor" size="4.5" class="col_center_align">
+        <ion-button class="responsive-button" (click)="updateData('cancel', true)">Cancel Activity</ion-button>
       </ion-col>
     </ion-row>
 
@@ -77,7 +71,7 @@
     <div style="display: grid; align-items: center; margin-top: 20px;">
       <ion-row>
         <ion-col class="col_center_align">
-          <ion-icon name="people-outline" style="height: 20px; width: 20px;"></ion-icon>
+          <img [alt]="activityData?.activityName" [src]="'../../assets/'+activityData?.activityName+'.png'" style="height: 20px; width: 32px; padding-right: 10px;"/>
           <ion-text style="padding-left: 5px;">{{activityData?.activityName}}</ion-text>
         </ion-col>
         <ion-col style="display: flex; flex-direction: row; justify-content: end;" class="col_center_align">
@@ -90,7 +84,7 @@
       <ion-row>
         <ion-col size="8" style="display: flex;">
           <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
-          <ion-text style="padding-left: 5px;">{{activityData?.location?.structured_formatting?.main_text}}</ion-text>
+          <ion-text style="padding-left: 5px;">{{activityData?.location?.description}}</ion-text>
         </ion-col>
         <ion-col style="display: flex; flex-direction: row; justify-content: end;" class="col_center_align" size="4">
           <ion-button (click)="navigateTo()" style="margin-right: 0px;">Directions</ion-button>
@@ -108,7 +102,7 @@
           <ion-text style="padding-left: 5px;">9am</ion-text>
         </ion-col> -->
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="activityData?.endDate != ''">
         <ion-col class="col_center_align">
           <ion-icon name="calendar-outline" style="height: 20px; width: 20px;"></ion-icon>
           <ion-text style="padding-left: 5px;"><span style="font-weight: 600;"> End Time: </span>{{activityData?.endDate | date:'d MMMM EEE h:mm a'}}</ion-text>
@@ -116,7 +110,9 @@
       </ion-row>
     </div>
 
-    <ion-row style="margin-top: 15px;">
+    <!-- **** Need this commented code -->
+
+    <!-- <ion-row style="margin-top: 15px;">
       <ion-col class="col_center_align" size="8" style="margin-left: 10px">
         <ion-text class="sub_heading" style="padding-right: 5px;">set alerts</ion-text>
         <ion-icon name="information-circle-outline" style="height: 20px; width: 20px;"></ion-icon>
@@ -129,14 +125,12 @@
         <ion-button>same <br>day</ion-button>
         <ion-button>1 hour <br>before</ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <div style="height: 10%; margin: 15px 0px;" *ngIf="!(activityData?.description == '')">
-      <ion-row>
-        <ion-col>
-          <ion-text>{{activityData?.description}}</ion-text>
-        </ion-col>
-      </ion-row>
+    <div style="height: 12%; margin: 15px 0px; padding: 10px; border: solid 1px; border-radius: 10px;" *ngIf="!(activityData?.description == '')">
+      <ion-content>
+        <ion-text>{{activityData?.description}}</ion-text>
+      </ion-content>
     </div>
 
     <ion-row>
@@ -146,7 +140,7 @@
     </ion-row>
 
     <ion-row style="border-bottom: none !important; width: 100%;">
-        <div class="round round_new center_align"><img *ngIf="activityData?.activityCreatedBy?.imageUrl" [src]="activityData?.activityCreatedBy?.imageUrl" alt="user"/></div>
+        <div class="round round_new center_align"><img *ngIf="profilePic" [src]="profilePic" alt="user"/></div>
       <ion-col style="margin: 30px 0px;">
         <ion-label>{{activityData?.activityCreatedBy?.name}}</ion-label><br>
         <ion-label>{{activityData?.activityCreatedBy?.city}}</ion-label><br>
@@ -169,10 +163,10 @@
         <ion-icon class="svg_size" name="person-circle-outline"></ion-icon>
         <ion-label>View Profile</ion-label>
       </ion-col>
-      <ion-col class="center_align_icon_text">
+      <ion-col *ngIf="activityData?.activityCreatedBy?.showMobile" class="center_align_icon_text">
         <a [href]="'tel:'+ activityData?.activityCreatedBy?.mobile" style="color: black; text-decoration: none; display: contents;">
           <ion-icon class="svg_size" name="mic-circle-outline"></ion-icon>
-          <ion-label>Call satya</ion-label>
+          <ion-label>Call</ion-label>
         </a>
       </ion-col>
     </ion-row>

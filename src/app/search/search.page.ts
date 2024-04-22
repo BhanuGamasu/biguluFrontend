@@ -72,7 +72,6 @@ export class SearchPage implements OnInit {
     private route: Router,
     private alertController: AlertController,) {
       this.autocompleteService = new google.maps.places.AutocompleteService();
-      console.log('search');
      }
 
   ngOnInit() {
@@ -94,24 +93,18 @@ export class SearchPage implements OnInit {
   }
 
   onPredictionSelect(prediction: any) {
-    console.log('Selected prediction:', prediction);
     this.selectedPrediction = prediction;
     this.search = prediction.description;
     this.currentData.location = prediction?.structured_formatting?.main_text;
     const placeService = new google.maps.places.PlacesService(document.createElement('div'));
-    console.log(placeService, 101010);
     
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
-      console.log(google.maps.places.PlacesServiceStatus.OK, 8178132);
       
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.currentData.location = prediction.structured_formatting.main_text
-        console.log('Latitude:', placeResult.geometry.location.lat());
-        console.log('Longitude:', placeResult.geometry.location.lng());
         this.currentData.latitude = placeResult.geometry.location.lat();
         this.currentData.longitude = placeResult.geometry.location.lng();
         this.currentData.placeId = prediction.place_id;
-        console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
       }
     }, (err: any) => {
       console.log(err, 33333);
@@ -134,10 +127,8 @@ export class SearchPage implements OnInit {
 
   onSportSelected(event: any, key: string) {
     if (key == 'activityName' || key == 'category') {
-      console.log(event.target.value);
       this.currentData[key] = event.target.value;
     } else {
-      console.log(event);
       this.currentData[key] = event;
     }
   }
@@ -151,7 +142,6 @@ export class SearchPage implements OnInit {
         return
       }
     })
-    console.log(formValid, this.currentData, 4567898765);
     
     if (formValid) {
       this.auth.sendSearchData(this.currentData);

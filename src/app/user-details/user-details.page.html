@@ -6,14 +6,12 @@
   </ion-row>
   <ion-row *ngIf="showTop" style="border-bottom: none !important; width: 100%;">
     <ion-col>
-      <!-- <div *ngIf="!userData.imageUrl" class="round"></div>
-      <img [src]="userData.imageUrl" alt="profile"/> -->
       <div class="col_center_align" style="flex-direction: column;">
         <div class="profile-photo-container">
           <img *ngIf="profilePhoto" [src]="profilePhoto" [ngClass]="{ 'rounded': profilePhoto }">
           <label class="upload-label" *ngIf="!profilePhoto">
             <input type="file" accept="image/*" (change)="onFileSelected($event)">
-            Choose Photo
+            Choose Photo*
           </label>
         </div>
         <label *ngIf="profilePhoto" class="change-file-label">
@@ -27,60 +25,70 @@
     <div *ngIf="showTop" style="margin: 20px;">
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">Name</ion-label>
+          <ion-label position="stacked">Name*</ion-label>
           <ion-input formControlName="userName" placeholder="Enter Name"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">Email</ion-label>
+          <ion-label position="stacked">Email*</ion-label>
           <ion-input formControlName="email" placeholder="Enter Email"></ion-input>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">Mobile</ion-label>
+          <ion-label position="stacked">Mobile*</ion-label>
           <ion-input formControlName="mobile" placeholder="Enter Mobile"></ion-input>
         </ion-item>
       </ion-card>
+      <ion-row>
+        <ion-col style="display: flex; align-items: center;">
+          <ion-toggle class="togglr_style" formControlName="showMobile"></ion-toggle>
+          <ion-text>
+            Deactivate toggle to hide phone number
+          </ion-text>
+        </ion-col>
+      </ion-row>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">City</ion-label>
+          <ion-label position="stacked">City*</ion-label>
           <ion-input formControlName="city" placeholder="Enter City"></ion-input>
         </ion-item>
       </ion-card>
-  
+
       <ion-row>
         <ion-label class="col_center_align">
           <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
         </ion-label>
         <ion-col>
-          <ion-text class="sub_heading">Gender Preference ?</ion-text>
+          <ion-text class="sub_heading">Gender*</ion-text>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
         <ion-col>
-          <ion-button [ngClass]="tabData.gender == 'anyone'? 'selected': ''" (click)="onClickTab('gender', 'anyone')">Anyone</ion-button>
+          <ion-button [ngClass]="tabData.gender == 'anyone'? 'selected': ''" (click)="onClickTab('gender', 'anyone')">Other</ion-button>
           <ion-button [ngClass]="tabData.gender == 'male'? 'selected': ''" (click)="onClickTab('gender', 'male')">Male</ion-button>
           <ion-button [ngClass]="tabData.gender == 'female'? 'selected': ''" (click)="onClickTab('gender', 'female')">Female</ion-button>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
         <ion-label class="col_center_align">
           <ion-icon name="male-outline" style="height: 20px; width: 20px;"></ion-icon>
         </ion-label>
         <ion-col>
-          <ion-text class="sub_heading">Age Preference ?</ion-text>
+          <ion-text class="sub_heading">Age*</ion-text>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
         <ion-col>
-          <ion-button [ngClass]="tabData.age == 'anyone'? 'selected': ''" (click)="onClickTab('age', 'anyone')">Anyone</ion-button>
           <ion-button [ngClass]="tabData.age == '18-24'? 'selected': ''" (click)="onClickTab('age', '18-24')">18-24</ion-button>
-          <ion-button [ngClass]="tabData.age == '25-40'? 'selected': ''" (click)="onClickTab('age', '25-40')">25-40</ion-button>
+          <ion-button [ngClass]="tabData.age == '25-32'? 'selected': ''" (click)="onClickTab('age', '25-32')">25-32</ion-button>
+          <ion-button [ngClass]="tabData.age == '33-40'? 'selected': ''" (click)="onClickTab('age', '33-40')">33-40</ion-button>
+          <ion-button [ngClass]="tabData.age == '41-50'? 'selected': ''" (click)="onClickTab('age', '41-50')">41-50</ion-button>
+          <ion-button [ngClass]="tabData.age == '51-65'? 'selected': ''" (click)="onClickTab('age', '51-65')">51-65</ion-button>
         </ion-col>
       </ion-row>
 
@@ -94,14 +102,23 @@
     <div *ngIf="!showTop" style="margin: 20px;">
       <ion-card style="display: grid; align-items: center;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">Max two words what you want to do?</ion-label>
+          <ion-label position="stacked">Max two words what you want to do?*</ion-label>
           <ion-input maxlength="25" formControlName="aboutMe"></ion-input>
         </ion-item>
       </ion-card>
-      <ion-card style="display: grid; align-items: center; height: 140px;" class="input_selection">
+      <ion-card style="display: grid; align-items: center; height: 80px;" class="input_selection">
         <ion-item>
-          <ion-label position="stacked">Bio</ion-label>
+          <ion-label position="stacked">Bio*</ion-label>
           <ion-textarea maxlength="200" formControlName="bio"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-card style="display: grid; align-items: center;" class="input_selection">
+        <ion-item>
+          <ion-select aria-label="Fruit" formControlName="profiletype" interface="popover" placeholder="Select type">
+            <ion-select-option *ngFor="let profile of profiles" [value]="profile">{{profile}}</ion-select-option>
+            <!-- <ion-select-option value="oranges">Oranges</ion-select-option>
+            <ion-select-option value="bananas">Bananas</ion-select-option> -->
+          </ion-select>
         </ion-item>
       </ion-card>
       <ion-card style="display: grid; align-items: center;" class="input_selection">
@@ -132,11 +149,11 @@
         <ion-col size="3" class="flex_start_align">
           <ion-icon (click)="showTop = !showTop" name="chevron-up-outline" class="svg_size"></ion-icon>
         </ion-col>
-        <ion-col size="7" class="flex_end_align">
-          <ion-label style="font-size: 22px !important; font-weight: 700;">Join Now</ion-label>
+        <ion-col (click)="submit()" size="7" style="cursor: pointer;" class="flex_end_align">
+          <ion-label style="font-size: 22px !important; font-weight: 700;">{{userData?.mobile ? 'Update': 'Join Now'}}</ion-label>
         </ion-col>
-        <ion-col size="2" class="flex_end_align">
-          <ion-icon (click)="submit()" style="height: 54px; width: 54px;" name="arrow-forward-circle-outline"></ion-icon>
+        <ion-col (click)="submit()" size="2" style="cursor: pointer;" class="flex_end_align">
+          <ion-icon style="height: 54px; width: 54px;" name="arrow-forward-circle-outline"></ion-icon>
         </ion-col>
       </ion-row>
     </div>

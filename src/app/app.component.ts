@@ -33,9 +33,10 @@ export class AppComponent {
       role: 'junior Analyst'
     }];
   constructor( private router: Router, private auth: AuthServiceService, private menuCtrl: MenuController) {
-    if (!this.auth.checkToken()){
-      this.auth.logout()
-    }
+    
+    // if (!this.auth.checkToken()){
+    //   this.auth.logout()
+    // }
     if (!isPlatform('capacitor')) {
       this.initialize()
       // let init = await GoogleAuth.initialize();
@@ -54,12 +55,10 @@ export class AppComponent {
 
   async initialize() {
     let init = await GoogleAuth.initialize();
-    console.log(init, 'init');
   }
 
   async signOut() {
     GoogleAuth.signOut().then(res => {
-      console.log(res, 'Signed out');
       this.auth.logout();
       this.router.navigateByUrl('/login')
     })

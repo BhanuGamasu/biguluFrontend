@@ -21,9 +21,7 @@ export class ActivityRequestOverviewPage implements OnInit {
     this.id = this.route.url.split('/')[2];
     this.auth.getInvitesData({activityId: this.id}).subscribe(val => {
       if (val.success) {
-        this.inviteData = val.data[0]
-        console.log(this.inviteData,"bhhh");
-        
+        this.inviteData = val.data[0];
       }
     }, err => {
 

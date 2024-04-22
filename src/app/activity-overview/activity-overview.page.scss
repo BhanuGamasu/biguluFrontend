@@ -24,3 +24,8 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.align_end {
+    align-items: start;
+    justify-content: end;
+}

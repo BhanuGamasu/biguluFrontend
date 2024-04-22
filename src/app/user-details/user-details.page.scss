@@ -68,3 +68,10 @@ ion-item {
 .change-file-label input {
   display: none;
 }
+
+.togglr_style {
+  height: 20px;
+  --handle-background: #ededed;
+  --background-checked: #f5cac8;
+  --handle-background-checked: #AA4A44;
+}

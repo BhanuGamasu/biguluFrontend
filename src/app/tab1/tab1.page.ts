@@ -13,13 +13,13 @@ export class Tab1Page {
   activityData: any = [];
   searchObs: any;
   sData: any = '';
-  currentData:any  = {activity: '', date: '', time: '', gender:'', age: '', count: '', category: '', location: ''};
+  currentData:any  = {activity: '', date: 'all', time: '', gender:'', age: '', count: '', category: '', location: ''};
+  initSub: any;
   constructor(private route: Router, private authService: AuthServiceService, private nav: NavController) {
-    this.ionViewWillEnter()
+    // this.ionViewWillEnter()
     // setInterval(() => {
     //   this.activityData = localStorage.getItem('activity');
     // this.activityData = JSON.parse(this.activityData);
-    // console.log(this.activityData, 'dfghgfd');
     
     // }, 1000)
   }
@@ -38,27 +38,55 @@ export class Tab1Page {
   //   // }, 1000)
   //   this.ionViewWillEnter()
   // }
+
   ionViewWillEnter() {
-    this.currentData.date = ''
-    console.log('ionViewWillEnter triggered');
+    this.initSub = this.authService.initiatePage.subscribe(val => {      
+      this.ionViewDidEnter();
+    })    
+  }
+
+  ionViewDidEnter() {
+    this.currentData.date = 'all'
     this.searchObs?.unsubscribe();
-    this.searchObs = this.authService.searchVal.subscribe(val => {
-      console.log(val, 6474);
-      this.sData = val;
-      this.authService.getFilterData(this.sData).subscribe(res => {
-        console.log(res, 6875);
-        this.sData = ''
-        this.activityData = res.data;
-      })
+    // this.searchObs = this.authService.searchVal.subscribe(val => {
+    //   console.log(val, 6474);
+    //   this.sData = val;
+    //   this.authService.getFilterData(this.sData).subscribe(res => {
+    //     console.log(res, 6875);
+    //     this.sData = ''
+    //     this.activityData = res.data;
+    //   })
       
-    });
+    // });
     if (this.sData == '') {
-      this.authService.getAllActivities().subscribe(val => {
-        if (val.success) {
-          this.activityData = val.data || [];
-        }
-      })
+      this.getAllActivities()
     }  
+  }
+
+  customeActivity(type: any) {
+    if (type == 'All') {
+      this.getAllActivities()
+      return;
+    }
+    this.authService.getCustomActivities({type}).subscribe(val => {
+      if(val.success) {
+        this.activityData = val.activities;
+      }
+    })
+  }
+
+  getAllActivities() {
+    this.authService.getAllActivities().subscribe(val => {
+      if (val.success) {
+        this.activityData = val.data || [];
+      }
+    })
+  }
+
+  clear() {
+    this.getAllActivities()
+    this.currentData.date = 'all';
+
   }
 
   filterDate(val: any) {
@@ -66,8 +94,11 @@ export class Tab1Page {
       return;
     }
     this.currentData.date = val;
+    if (val == 'all') {
+      this.getAllActivities();
+      return;
+    }
     this.authService.getFilterData(this.currentData).subscribe(res => {
-      console.log(res, 6875);
       this.sData = ''
       this.activityData = res.data;
     })
@@ -92,6 +123,10 @@ export class Tab1Page {
 
   activityOverview(id: any){
     this.route.navigateByUrl('activity-overview/'+ id)
+  }
+
+  ionViewWillLeave() {
+    this.initSub.unsubscribe();
   }
 
   navigateRequests(){

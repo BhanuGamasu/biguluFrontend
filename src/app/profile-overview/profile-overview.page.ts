@@ -14,6 +14,9 @@ export class ProfileOverviewPage implements OnInit {
   showBtn: boolean = false;
   activityId: string;
   acceptInfo: any = {};
+  mailLink: string;
+  callLink: string;
+  profilePic: any;
 
   constructor(
     private location: Location,
@@ -25,17 +28,31 @@ export class ProfileOverviewPage implements OnInit {
         this.showBtn = true;
         this.activityId = this.route.url.split('/')[3]
       }
-      console.log(this.id, this.route.url.split('/'));
       
      }
 
   ngOnInit() {
   }
 
+  getProfileImage(gridfsId: any) {
+    this.auth.getImage({gridfsId}).subscribe((val: any) => {
+      if (val.success) {
+        this.profilePic = atob(val.data.data);
+      }
+    })
+  }
+
   ionViewWillEnter() {
     this.auth.getProfile({id: this.id}).subscribe(val => {
       if (val.success) {
-        this.userData = val.data
+        this.userData = val.data;
+        if(this.userData?.gridfsId) {
+          this.getProfileImage(this.userData.gridfsId)
+        } else {
+          this.profilePic = this.userData?.imageUrl
+        }
+        this.mailLink = this.userData?.email ? `mailto: ${this.userData?.email}`: '';
+        this.callLink = this.userData?.mobile ? `tel: ${this.userData?.mobile}`: '';
         this.auth.acceptInfo({visitorId: this.id, activityId: this.activityId}).subscribe(res => {
           if(res.success) {
             this.acceptInfo = res.data;
@@ -49,9 +66,8 @@ export class ProfileOverviewPage implements OnInit {
     })
   }
 
-  accept(val: boolean){
-    this.auth.updateAcceptInfo({value: val, visitorId: this.id, activityId: this.activityId}).subscribe(val => {
-      console.log(val, 646);
+  accept(type: any,val: boolean){
+    this.auth.updateAcceptInfo({type, value: val, visitorId: this.id, activityId: this.activityId}).subscribe(val => {
       if(val.success) {
         this.acceptInfo = val.data;
       }

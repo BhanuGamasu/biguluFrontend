@@ -28,7 +28,7 @@ export class Tab2Page {
   currentSport: any;
 
   sports = [
-    'Entertainment tickets', 
+    'Entertainment', 
     'Dining out', 
     'Drink Buddy', 
     'Clubbing', 
@@ -43,15 +43,16 @@ export class Tab2Page {
     'Road Trip', 
     'Adventure Tourism', 
     'Sightseeing', 
+    'Fitness',
     'Cultural Festival', 
     'Outdoor Games', 
     'Outdoor Adventure', 
     'Volunteering', 
     'Film and Movie Nights', 
-    'Coding or Hackathons'
+    'Coding or Hackathons',
   ];
   sportDesc = {
-    'Entertainment tickets': 'Invite Bigulus If you had extra tickets for a movie , music concert or game',
+    'Entertainment': 'Invite Bigulus If you had extra tickets for a movie , music concert or game',
     'Dining out': 'Indulge in delicious food, try different cuisines, and socialize', 
     'Drink Buddy': 'Drink Buddy', 
     'Clubbing': "Let/'s Hit the Club! for a Night of Fun and Dancing", 
@@ -66,13 +67,15 @@ export class Tab2Page {
     'Road Trip': "Take a road trip to explore scenic routes, picturesque landscapes, and hidden gems.", 
     'Adventure Tourism': "Engage in thrilling activities like bungee jumping, paragliding, hiking, or white-water rafting in scenic destinations.", 
     'Sightseeing': " Visit famous landmarks, historical sites, and iconic attractions in different cities and countries.", 
+    'Fitness': "Find a bigulu to workout to stay active, stay fit.",
     'Cultural Festival': "Attend festivals and celebrations to immerse yourself in local traditions, music, dance, and cuisine.", 
     'Outdoor Games': "Looking for an extra player or a team? Post here.", 
     'Outdoor Adventure': "Form or join groups for outdoor activities like hiking, rock climbing, kayaking, or camping, connecting with nature enthusiasts.", 
     'Volunteering': "Engage in volunteer work or community service projects, connecting with individuals who share a passion for making a positive impact on society.", 
     'Film and Movie Nights': "Organize or join film clubs to watch and discuss movies, exploring different genres and engaging in cinematic conversations.", 
     'Coding or Hackathons': " Participate in coding workshops, hackathons, or programming groups where individuals collaborate on coding projects and share knowledge."
-  }
+  };
+  currentTime: any = new Date().toISOString()
   search: any;
   autocompleteService: any;
   predictions: any;
@@ -93,6 +96,22 @@ export class Tab2Page {
       this.search = '';
       this.selectedPrediction = ''
       this.currentData = {date: 'Today', startDate: '', endDate: '', activityName: '', gender:'Anyone', age: 'Anyone', count: 1, location: 'Miyapur Hyderabad',description:''};
+      if (window.location.pathname.includes('editActivity')) {
+        let activityData = this.authService.getEditData();
+        if (activityData){
+          this.setPreselect(activityData)
+        } else {
+          let id = this.route.url.split('/')[2];
+          this.authService.getAcivityInfo({activityId: id}).subscribe(val => {
+            activityData = val.data[0];
+            this.setPreselect(activityData)
+          }, err => {
+            console.log(err, 8786);
+            
+          })
+        }
+        
+      }
     }
   ngOninit(){
     // let data = this.authService.getLocation();
@@ -107,6 +126,22 @@ export class Tab2Page {
       // count: ['', Validators.required],
       // activityType: ['', Validators.required]
     // })
+  }
+
+  setPreselect(activityData: any) {
+    this.currentData = {
+      _id: activityData._id,
+      date: activityData.date, 
+      startDate: activityData.startDate, 
+      endDate: activityData.endDate, 
+      activityName: activityData.activityName, 
+      gender: activityData.gender, 
+      age: activityData.age, 
+      count: activityData.count, 
+      location: activityData.location, 
+      description: activityData.description,
+    }
+    this.search = activityData.location.description
   }
 
   // getLocation() {
@@ -140,39 +175,34 @@ export class Tab2Page {
   // }
 
   publish(){
-    // localStorage.setItem('inputValue', this.inputValue);
-    // console.log('hiiii', this.createActivity.value, 9898);
-    console.log(this.currentData, 676);
     
     for (let key in this.currentData) {
       if (this.currentData[key] == '' && key != 'endDate') {
         return;
       }
     }
-    // this.activityData = localStorage.getItem('activity')
-    this.authService.createActivity(this.currentData).subscribe(val => {
-      if (val.success) {
-        this.route.navigateByUrl('tabs/tab1')
-      }
-    })
-    // this.activityData = JSON.parse(this.activityData);
-    // console.log(this.currentData, this.activityData, 5678);
-    // if (this.activityData == undefined) {
-    //   this.activityData = []
-    // }
-    // this.activityData.push(this.currentData);
-    // localStorage.setItem('activity', JSON.stringify(this.activityData));
-    // this.route.navigateByUrl('tabs/tab1')
+    if (window.location.pathname.includes('editActivity')) {
+      this.authService.editActivity(this.currentData).subscribe(val => {
+        if (val.success) {
+          this.route.navigate(['tabs/tab1'])
+        }
+      })
+    } else {
+      this.authService.createActivity(this.currentData).subscribe(val => {
+        if (val.success) {
+          this.route.navigateByUrl('tabs/tab1')
+        }
+      })
+    }
   }
 
   async onSearchInput() {
+
     if (this.search?.length > 0) {
       const loading = await this.loadingCtrl.create();
       this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions:any, status:any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           this.predictions = predictions;
-          console.log(predictions,465654);
-          
         } else {
           this.predictions = [];
         }
@@ -183,11 +213,14 @@ export class Tab2Page {
   }
 
   back() {
+    if (window.location.pathname.includes('editActivity')) {
+      this.route.navigate(['/activity-overview/' + this.currentData._id])
+      return
+    }
     this.route.navigate(['tabs'])
   }
 
   onPredictionSelect(prediction: any) {
-    console.log('Selected prediction:', prediction);
     this.selectedPrediction = prediction;
     this.currentData.location = this.selectedPrediction;
     this.search = prediction.description
@@ -195,11 +228,12 @@ export class Tab2Page {
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         // this.currentData.location = prediction.structured_formatting.main_text
-        console.log('Latitude:', placeResult.geometry.location.lat());
-        console.log('Longitude:', placeResult.geometry.location.lng());
-        // this.currentData.latitude = placeResult.geometry.location.lat();
-        // this.currentData.longitude = placeResult.geometry.location.lng();
-        // this.currentData.placeId = prediction.place_id;
+        // this.selectedPrediction.latitude = placeResult.geometry.location.lat();
+        // this.selectedPrediction.longitude = placeResult.geometry.location.lng();
+        // this.currentData.location = this.selectedPrediction;
+        this.currentData.latitude = placeResult.geometry.location.lat();
+        this.currentData.longitude = placeResult.geometry.location.lng();
+        this.currentData.placeId = prediction.place_id;
         // console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
       }
     });
@@ -207,7 +241,6 @@ export class Tab2Page {
   }
 
   onClick(key: any, value: any) {
-    console.log(key, value, this.currentData[key]);
     if (key == 'count' || key == 'description'){
       if (key == 'count') {
         value = parseInt(value.target.value);
@@ -222,7 +255,6 @@ export class Tab2Page {
 
   }
   changeDate(e: any, key: string) {
-    console.log(e.target.value, 76276);
     this.currentData[key] = e.target.value
   }
   dismiss(key: string) {
@@ -313,7 +345,6 @@ export class Tab2Page {
 
   onSportSelected(event: any, key: string) {
     this.currentData[key] = event.target.value;
-    console.log(event.target.value);
   }
   
 

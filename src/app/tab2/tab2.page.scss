@@ -18,6 +18,7 @@ ion-textarea.custom-textarea {
 
   ::ng-deep .select-popover {
     max-height: 300px !important;
+    --backdrop-opacity: 0;
   }
 
   ion-modal#example-modal {
@@ -65,4 +66,30 @@ ion-textarea.custom-textarea {
 
   ::ng-deep .datetime-size-fixed:not(.datetime-prefer-wheel) {
     max-width: none !important;
+  }
+
+  .prediction-list {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.4);
+    padding: 0;
+    margin-top: 2px;
+    border-top-width: 0px;
+  }
+  
+  .prediction-list ion-item {
+    padding: 6px;
+    cursor: pointer;
+    --padding-start: 5px
+  }
+  
+  .prediction-list ion-item:hover {
+    --background: aliceblue;
+  }
+
+  ::ng-deep .input-has-value .input-inner input[type="number"]::after {
+    display: none !important;
   }

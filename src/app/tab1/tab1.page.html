@@ -1,29 +1,64 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons style="display: contents;" slot="start">
-      <ion-menu-button menu="main-menu" auto-hide="false"></ion-menu-button>
+      <ion-menu-button menu="main-menu" auto-hide="false" style="color: #AA4A44;"></ion-menu-button>
     </ion-buttons>
     <ion-row style="display: flex; align-items: center;">
-      <ion-col class="center_align col_center_align" size="4">
+      <ion-col class="center_align" size="3">
+        <!-- <ion-text style="font-size: 18px;">Bigulu</ion-text> -->
+        <img style="height: 35px; width: 35px;" src="../../assets/Bigulu_logo.svg" />
+      </ion-col>
+      <ion-col class="center_align col_center_align" size="3">
         <!-- <ion-searchbar style="padding: 0px"></ion-searchbar> -->
         <ion-icon style="height: 36px; width: 36px;" name="search-outline" (click)="search()"></ion-icon>
       </ion-col>
-      <ion-col class="center_align" size="4">
-        <ion-text style="font-size: 18px;">Bigulu</ion-text>
+      <ion-col class="center_align col_center_align" size="3">
+        <div>
+          <ion-icon id="open-custom-dialog" style="height: 32px; width: 32px;" name="filter-circle-outline"></ion-icon>
+        </div>
       </ion-col>
-      <!-- <ion-col class="center_align" size="4">
-        <ion-badge color="primary">22k</ion-badge>
-      </ion-col> -->
-      <!-- <ion-col class="center_align" size="3">
-        <ion-button (click)="signOut()">signOut</ion-button>
-      </ion-col> -->
+      <ion-col class="center_align col_center_align" size="3">
+        <div (click)="clear()">
+          <img style="height: 25px; width: 25px;" src="../../assets/clear_filter.png" alt="">
+        </div>
+      </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
+<ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ng-template>
+    <div class="wrapper">
+      <h1>Filters</h1>
+
+      <ion-list lines="none">
+        <ion-item button="true" detail="false" (click)="customeActivity('All')" (click)="modal.dismiss()">
+          <!-- <ion-icon name="person-circle"></ion-icon> -->
+          <ion-label>All</ion-label>
+        </ion-item>
+        <ion-item button="true" detail="false" (click)="customeActivity('favorite')" (click)="modal.dismiss()">
+          <!-- <ion-icon name="person-circle"></ion-icon> -->
+          <ion-label>favorite</ion-label>
+        </ion-item>
+        <ion-item button="true" detail="false" (click)="customeActivity('cancelled')" (click)="modal.dismiss()">
+          <!-- <ion-icon name="person-circle"></ion-icon> -->
+          <ion-label>cancelled</ion-label>
+        </ion-item>
+        <ion-item button="true" detail="false" (click)="customeActivity('myActivities')" (click)="modal.dismiss()">
+          <!-- <ion-icon name="person-circle"></ion-icon> -->
+          <ion-label>my activities</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ng-template>
+</ion-modal>
+
 
 <ion-toolbar>
   <ion-segment [value]="currentData.date">
+    <ion-segment-button (click)="filterDate('all')" value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
     <ion-segment-button (click)="filterDate('today')" value="today">
       <ion-label>Today</ion-label>
     </ion-segment-button>
@@ -33,15 +68,15 @@
     <ion-segment-button (click)="filterDate('week')" value="week">
       <ion-label>This Week</ion-label>
     </ion-segment-button>
-    <ion-segment-button (click)="filterDate('month')" value="month">
+    <!-- <ion-segment-button (click)="filterDate('month')" value="month">
       <ion-label>This Month</ion-label>
-    </ion-segment-button>
+    </ion-segment-button> -->
   </ion-segment>
 </ion-toolbar>
 
 
-<ion-content [fullscreen]="true">
-  <ion-card class="top-container" *ngFor="let item of activityData">
+<ion-content [fullscreen]="true" *ngIf="activityData?.length">
+  <ion-card class="top-container" *ngFor="let item of activityData" (click)="activityOverview(item._id)" style="cursor: pointer;">
     <ion-row style="padding-bottom: 7px;">
       <ion-col size="4.5" style="padding-left: 10px;" class="col_center_align">
         <img [alt]="item?.activityName" [src]="'../../assets/'+item?.activityName+'.png'" style="height: 20px; width: 32px; padding-right: 10px;"/>
@@ -64,7 +99,7 @@
     </ion-row>
     <ion-row *ngIf="!(item?.description=='')">
       <ion-col>
-        <ion-text>{{item?.description}}</ion-text>
+        <ion-text class="description">{{item?.description}}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -90,11 +125,15 @@
           </div>
         </ion-label>
       </ion-col>
-      <ion-icon (click)="activityOverview(item._id)" name="arrow-forward-circle-outline" style="height: 35px; width: 35px;"></ion-icon>
-      <!-- <ion-col class="col_center_align" size="10">
-        <ion-text class="sub_heading">{{item.location?.description}}</ion-text>
-        <ion-icon (click)="activityOverview(item._id)" name="arrow-forward-circle-outline" style="height: 35px; width: 35px;"></ion-icon>
-      </ion-col> -->
+      <ion-icon name="arrow-forward-circle-outline" style="height: 35px; width: 35px;"></ion-icon>
     </ion-row>
   </ion-card>
+</ion-content>
+<ion-content *ngIf="!activityData?.length">
+  <!-- <div class="background_img_styles">
+  </div> -->
+  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <ion-text style="margin-bottom: -100px; padding: 0px 10px; text-align: center; z-index: 10;">No activities found! No worries, you can create one to find your tribe.</ion-text>
+    <img style="height: 500px; width: 500px;" src="../../assets/no_listings.svg" />
+  </div>
 </ion-content>

@@ -20,6 +20,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authService = this.injector.get(AuthServiceService);
+
     const authReq = req.clone(
       {
         setHeaders: {

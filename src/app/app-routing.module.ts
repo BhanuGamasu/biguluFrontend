@@ -52,7 +52,35 @@ const routes: Routes = [
   {
     path: 'subscription',
     loadChildren: () => import('./subscription/subscription.module').then( m => m.SubscriptionPageModule)
-  }
+  },
+  {
+    path: 'terms-and-condetions',
+    loadChildren: () => import('./terms-and-condetions/terms-and-condetions.module').then( m => m.TermsAndCondetionsPageModule)
+  },
+  {
+    path: 'cancellation-policy',
+    loadChildren: () => import('./cancellation-policy/cancellation-policy.module').then( m => m.CancellationPolicyPageModule)
+  },
+  {
+    path: 'privacy-policy',
+    loadChildren: () => import('./privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+  },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
+  },
+  {
+    path: 'pricing',
+    loadChildren: () => import('./pricing/pricing.module').then( m => m.PricingPageModule)
+  },
+  {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us.module').then( m => m.ContactUsPageModule)
+  },
+  {
+    path: 'editActivity/:id',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+  },
   // {
   //   path: 'common-popup',
   //   loadChildren: () => import('./common-popup/common-popup.module').then( m => m.CommonPopupPageModule)

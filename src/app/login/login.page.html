@@ -3,6 +3,39 @@
     <div class="card-top">
     </div>
     <ion-card class="card-bottom">
+      <ion-row style="width: 29vw; display: flex; flex-direction: column; align-items: flex-start;left: 0;
+        position: absolute; height: 28vh; padding-left: 25px;">
+          <ion-col class="bg_aligin_center" (click)="toggleIcons()">
+            <div style="display: flex; align-items: center;">
+              <img src="../../assets/menu.webp" style="height: 23px; width: 33px; padding-right: 10px;" />
+            </div>
+            <ion-text>Menu</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="contact-us-icon" (click)="navigateToContactUs()">
+            <img src="../../assets/Contact-Us.png" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">Contact Us</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="pricing-icon" (click)="navigateToPricing()">
+            <img src="../../assets/pricing.png" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">Subscription</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="about-us-icon" (click)="navigateToAboutUs()">
+            <img src="../../assets/wistle.svg" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">About Us</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="privacy-policy-icon" (click)="navigateToPrivacyPolicy()">
+            <img src="../../assets/privacy-policy.png" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">Privacy Policy</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="refund-icon" (click)="navigateToRefund()">
+            <img src="../../assets/Book Club.png" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">Refund Details</ion-text>
+          </ion-col>
+          <ion-col class="bg_aligin_center icon-item" id="terms-and-conditions-icon" (click)="navigateToTermsAndCond()">
+            <img src="../../assets/terms-and-conditions.png" style="height: 20px; width: 32px; padding-right: 10px;" />
+            <ion-text class="hide_text">Tearms & Condetions</ion-text>
+          </ion-col>
+        </ion-row>
       <div style="position: fixed; bottom: 0; right: 0;">
         <ion-row>
           <ion-col size="5"></ion-col>

@@ -13,6 +13,10 @@ export class AuthServiceService {
   public searchVal = new Subject();
   public searchVal$ = this.searchVal.asObservable();
 
+  public initiatePage = new Subject();
+  public initiatePage$ = this.initiatePage.asObservable();
+  activityData: any;
+
   constructor(private http: HttpClient, private route: Router) { }
 
   login(loginData: any): Observable<any> {
@@ -37,12 +41,36 @@ export class AuthServiceService {
     return this.searchData
   }
 
+  updateInitiation() {
+    this.initiatePage.next(true);
+  }
+
+  sendActivityData(data: any) {
+    this.activityData = data;
+  }
+
+  getEditData() {
+    return this.activityData;
+  }
+
   sendSearchData(data: any) {
     this.searchVal.next(data);
   }
 
   checkUser(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "auth/checkUser", data);
+  }
+
+  uploadImage(data: any) {
+    return this.http.post(environment.baseUrl + "auth/uploadImage", {data});
+  }
+
+  getImage(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/getImage", data);
+  }
+
+  getProfileInfo(): Observable<any> {
+    return this.http.get(environment.baseUrl + 'auth/getProfileInfo')
   }
 
   getProfile(id: any): Observable<any> {
@@ -77,10 +105,13 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "auth/acceptInfo", data)
   }
 
+  editActivity(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "auth/editActivity", data)
+  }
+
   createActivity(data: any): Observable<any> {
     // let user: any = localStorage.getItem('user');
     // user = JSON.parse(user);
-    // console.log(user);
     
     // let a = {
     //   location: 'hyderabad',
@@ -97,6 +128,10 @@ export class AuthServiceService {
   }
   getAllActivities(): Observable<any> {
     return this.http.get(environment.baseUrl + 'auth/getAllActivities');
+  }
+
+  getCustomActivities(type: any): Observable<any> {
+    return this.http.post(environment.baseUrl + 'auth/getCustomActivities', type);
   }
 
   logout() {
@@ -136,9 +171,6 @@ export class AuthServiceService {
   //         data.town = component.long_name;
   //       }
   //     }
-
-  //     console.log('City:', data.city);
-  //     console.log('Town:', data.town);
   //     return data;
   //   });
   //     // this.getCityTownName(data);
